@@ -1,0 +1,858 @@
+{% extends "base.html" %}
+
+{% block title %}
+Interview Mirror - Interview Setup
+{% endblock %}
+
+
+{% block content %}
+
+<style>
+
+/* =========================================================
+   SETUP SECTION
+========================================================= */
+
+.setup_section{
+
+    min-height:
+    calc(100vh - 80px);
+
+    padding:
+    45px 5% 70px;
+
+    background:
+
+    radial-gradient(
+        circle at 80% 20%,
+        #063e91 0%,
+        transparent 35%
+    ),
+
+    linear-gradient(
+        120deg,
+        #01091e,
+        #031a43,
+        #001d55
+    );
+
+    position:relative;
+
+    overflow:hidden;
+}
+
+
+/* =========================================================
+   BLUE CIRCLE EFFECT
+========================================================= */
+
+.setup_section::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:600px;
+
+    height:600px;
+
+    border-radius:50%;
+
+    border:
+    2px solid
+    rgba(0,136,255,0.25);
+
+    right:-180px;
+
+    top:-170px;
+
+    box-shadow:
+
+    0 0 40px #006eff,
+
+    inset 0 0 40px #006eff;
+
+    pointer-events:none;
+}
+
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.setup_title{
+
+    text-align:center;
+
+    position:relative;
+
+    z-index:2;
+
+    margin-bottom:35px;
+}
+
+.setup_title h1{
+
+    font-size:42px;
+
+    margin-bottom:10px;
+}
+
+.setup_title h1 span{
+
+    color:#0797ff;
+}
+
+.setup_title p{
+
+    color:#c4d7f5;
+
+    font-size:17px;
+
+    line-height:1.6;
+}
+
+
+/* =========================================================
+   MAIN CONTAINER
+========================================================= */
+
+.setup_container{
+
+    max-width:1050px;
+
+    margin:auto;
+
+    padding:35px;
+
+    background:
+
+    linear-gradient(
+        145deg,
+        #071b42,
+        #04102a
+    );
+
+    border:
+    1px solid
+    #1459a5;
+
+    border-radius:15px;
+
+    box-shadow:
+
+    0 8px 30px
+    rgba(0,0,0,0.5),
+
+    0 0 25px
+    rgba(0,100,255,0.15);
+
+    position:relative;
+
+    z-index:2;
+}
+
+
+/* =========================================================
+   SETUP CARD
+========================================================= */
+
+.setup_card{
+
+    margin-bottom:25px;
+
+    padding:20px;
+
+    background:#061733;
+
+    border:
+    1px solid
+    #1459a5;
+
+    border-radius:10px;
+
+    transition:0.3s;
+}
+
+.setup_card:hover{
+
+    border-color:#078cff;
+
+    box-shadow:
+
+    0 0 18px
+    rgba(0,130,255,0.25);
+}
+
+
+/* =========================================================
+   LABEL
+========================================================= */
+
+.setup_card label{
+
+    display:block;
+
+    color:#4db7ff;
+
+    font-size:21px;
+
+    font-weight:bold;
+
+    margin-bottom:12px;
+}
+
+
+/* =========================================================
+   SELECT
+========================================================= */
+
+.setup_card select{
+
+    width:100%;
+
+    height:67px;
+
+    padding:
+    0 25px;
+
+    border:
+    1px solid
+    #7895b8;
+
+    border-radius:15px;
+
+    background:#ffffff;
+
+    color:#111111;
+
+    font-size:24px;
+
+    outline:none;
+
+    cursor:pointer;
+
+    transition:0.3s;
+}
+
+.setup_card select:hover{
+
+    border-color:#078cff;
+}
+
+.setup_card select:focus{
+
+    border:
+    2px solid
+    #078cff;
+
+    box-shadow:
+    0 0 12px
+    rgba(0,140,255,0.4);
+}
+
+
+/* =========================================================
+   SAVE AREA
+========================================================= */
+
+.start_area{
+
+    text-align:center;
+
+    margin-top:30px;
+
+    position:relative;
+
+    z-index:2;
+}
+
+
+/* =========================================================
+   SAVE BUTTON
+========================================================= */
+
+.start_button{
+
+    min-width:180px;
+
+    padding:
+    14px 40px;
+
+    border:none;
+
+    border-radius:7px;
+
+    background:
+
+    linear-gradient(
+        90deg,
+        #006eff,
+        #00aaff
+    );
+
+    color:white;
+
+    font-size:18px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    box-shadow:
+
+    0 0 20px
+    rgba(0,140,255,0.5);
+
+    transition:0.3s;
+}
+
+.start_button:hover{
+
+    transform:
+    translateY(-3px);
+
+    box-shadow:
+
+    0 0 15px
+    #00aaff,
+
+    0 0 30px
+    #006eff;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:900px){
+
+    .setup_container{
+
+        padding:20px;
+    }
+
+}
+
+
+@media(max-width:600px){
+
+    .setup_section{
+
+        padding:
+        35px 15px 50px;
+    }
+
+    .setup_title h1{
+
+        font-size:34px;
+    }
+
+    .setup_title p{
+
+        font-size:15px;
+    }
+
+    .setup_container{
+
+        padding:15px;
+    }
+
+    .setup_card{
+
+        padding:15px;
+    }
+
+    .setup_card label{
+
+        font-size:18px;
+    }
+
+    .setup_card select{
+
+        height:58px;
+
+        font-size:19px;
+
+        padding:
+        0 15px;
+    }
+
+    .start_button{
+
+        width:100%;
+    }
+
+}
+
+</style>
+
+
+<!-- =========================================================
+     INTERVIEW SETUP SECTION
+========================================================= -->
+
+<section class="setup_section">
+
+
+    <!-- =====================================================
+         TITLE
+    ====================================================== -->
+
+    <div class="setup_title">
+
+        <h1>
+
+            Interview <span>Setup</span>
+
+        </h1>
+
+        <p>
+
+            Customize your interview according to your
+            skills, knowledge and preparation level.
+
+        </p>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         SETUP CONTAINER
+    ====================================================== -->
+
+    <div class="setup_container">
+
+
+        <!-- =================================================
+             SETUP FORM
+        ================================================== -->
+
+        <form
+            id="setupForm"
+            action="/save_setup"
+            method="POST"
+            onsubmit="return validateSetup()"
+        >
+
+
+            <!-- =============================================
+                 DEPARTMENT
+            ============================================== -->
+
+            <div class="setup_card">
+
+                <label for="department">
+
+                    Select Department
+
+                </label>
+
+
+                <select
+                    id="department"
+                    name="department"
+                >
+
+                    <option value="">
+
+                        Select Department
+
+                    </option>
+
+
+                    <option
+                        value="Information Technology"
+                    >
+
+                        Information Technology
+
+                    </option>
+
+
+                    <option
+                        value="Computer Engineering"
+                    >
+
+                        Computer Engineering
+
+                    </option>
+
+
+                    <option
+                        value="Electronics"
+                    >
+
+                        Electronics
+
+                    </option>
+
+
+                    <option
+                        value="Mechanical"
+                    >
+
+                        Mechanical
+
+                    </option>
+
+
+                    <option
+                        value="Civil"
+                    >
+
+                        Civil
+
+                    </option>
+
+                </select>
+
+            </div>
+
+
+
+            <!-- =============================================
+                 DOMAIN
+            ============================================== -->
+
+            <div class="setup_card">
+
+                <label for="domain">
+
+                    Select Domain
+
+                </label>
+
+
+                <select
+                    id="domain"
+                    name="domain"
+                >
+
+                    <option value="">
+
+                        Select Domain
+
+                    </option>
+
+
+                    <option value="Java">
+
+                        Java
+
+                    </option>
+
+
+                    <option value="Python">
+
+                        Python
+
+                    </option>
+
+
+                    <option
+                        value="Web Development"
+                    >
+
+                        Web Development
+
+                    </option>
+
+
+                    <option value="Testing">
+
+                        Testing
+
+                    </option>
+
+
+                    <option value="Database">
+
+                        Database
+
+                    </option>
+
+
+                    <option value="Networking">
+
+                        Networking
+
+                    </option>
+
+                </select>
+
+            </div>
+
+
+
+            <!-- =============================================
+                 CATEGORY
+            ============================================== -->
+
+            <div class="setup_card">
+
+                <label for="category">
+
+                    Select Question Category
+
+                </label>
+
+
+                <select
+                    id="category"
+                    name="category"
+                >
+
+                    <option value="">
+
+                        Select Category
+
+                    </option>
+
+
+                    <option value="Technical">
+
+                        Technical
+
+                    </option>
+
+
+                    <option value="HR">
+
+                        HR
+
+                    </option>
+
+
+                    <option value="Behavioral">
+
+                        Behavioral
+
+                    </option>
+
+
+                    <option value="Communication">
+
+                        Communication
+
+                    </option>
+
+
+                    <option value="Mixed">
+
+                        Mixed
+
+                    </option>
+
+                </select>
+
+            </div>
+
+
+
+            <!-- =============================================
+                 DIFFICULTY
+            ============================================== -->
+
+            <div class="setup_card">
+
+                <label for="difficulty">
+
+                    Select Difficulty Level
+
+                </label>
+
+
+                <select
+                    id="difficulty"
+                    name="difficulty"
+                >
+
+                    <option value="">
+
+                        Select Difficulty
+
+                    </option>
+
+
+                    <option value="Easy">
+
+                        Easy
+
+                    </option>
+
+
+                    <option value="Medium">
+
+                        Medium
+
+                    </option>
+
+
+                    <option value="Hard">
+
+                        Hard
+
+                    </option>
+
+                </select>
+
+            </div>
+
+
+
+            <!-- =============================================
+                 SAVE BUTTON
+            ============================================== -->
+
+            <div class="start_area">
+
+                <button
+                    type="submit"
+                    class="start_button"
+                >
+
+                    Save & Continue
+
+                </button>
+
+            </div>
+
+
+        </form>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
+
+<script>
+
+function validateSetup(){
+
+    /* =====================================================
+       GET VALUES
+    ===================================================== */
+
+    const department =
+        document.getElementById(
+            "department"
+        ).value.trim();
+
+
+    const domain =
+        document.getElementById(
+            "domain"
+        ).value.trim();
+
+
+    const category =
+        document.getElementById(
+            "category"
+        ).value.trim();
+
+
+    const difficulty =
+        document.getElementById(
+            "difficulty"
+        ).value.trim();
+
+
+
+    /* =====================================================
+       DEPARTMENT VALIDATION
+    ===================================================== */
+
+    if(department === ""){
+
+        alert(
+            "Please select Department."
+        );
+
+        document.getElementById(
+            "department"
+        ).focus();
+
+        return false;
+
+    }
+
+
+
+    /* =====================================================
+       DOMAIN VALIDATION
+    ===================================================== */
+
+    if(domain === ""){
+
+        alert(
+            "Please select Domain."
+        );
+
+        document.getElementById(
+            "domain"
+        ).focus();
+
+        return false;
+
+    }
+
+
+
+    /* =====================================================
+       CATEGORY VALIDATION
+    ===================================================== */
+
+    if(category === ""){
+
+        alert(
+            "Please select Question Category."
+        );
+
+        document.getElementById(
+            "category"
+        ).focus();
+
+        return false;
+
+    }
+
+
+
+    /* =====================================================
+       DIFFICULTY VALIDATION
+    ===================================================== */
+
+    if(difficulty === ""){
+
+        alert(
+            "Please select Difficulty Level."
+        );
+
+        document.getElementById(
+            "difficulty"
+        ).focus();
+
+        return false;
+
+    }
+
+
+
+    /* =====================================================
+       FINAL SUBMIT
+    ===================================================== */
+
+    return true;
+
+}
+
+</script>
+
+{% endblock %}

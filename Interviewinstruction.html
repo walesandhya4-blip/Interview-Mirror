@@ -1,0 +1,1203 @@
+{% extends "base.html" %}
+
+{% block title %}
+Interview Mirror - Interview Instructions
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* =========================================================
+   RESET
+========================================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+
+/* =========================================================
+   BODY
+========================================================= */
+
+body{
+
+    font-family:Arial,sans-serif;
+
+    background:
+    radial-gradient(
+        circle at 80% 20%,
+        #063b80 0%,
+        transparent 30%
+    ),
+
+    linear-gradient(
+        135deg,
+        #020817,
+        #031a43,
+        #020b24
+    );
+
+    color:white;
+
+    min-height:100vh;
+}
+
+
+/* =========================================================
+   MAIN CONTAINER
+========================================================= */
+
+.instruction-container{
+
+    width:92%;
+
+    max-width:1050px;
+
+    margin:0 auto;
+
+    padding:45px 0 70px;
+
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.instruction-header{
+
+    text-align:center;
+
+    margin-bottom:35px;
+
+}
+
+.instruction-header h1{
+
+    font-size:40px;
+
+    margin-bottom:12px;
+
+    color:#ffffff;
+
+    text-shadow:
+    0 0 15px
+    rgba(54,170,255,0.4);
+
+}
+
+.instruction-header h1 span{
+
+    color:#0797ff;
+
+}
+
+.instruction-header p{
+
+    color:#b9d4f5;
+
+    font-size:16px;
+
+    line-height:1.6;
+
+}
+
+
+/* =========================================================
+   WELCOME BOX
+========================================================= */
+
+.welcome-box{
+
+    background:
+    linear-gradient(
+        145deg,
+        #071b42,
+        #04102a
+    );
+
+    border:
+    1px solid
+    #1459a5;
+
+    border-radius:16px;
+
+    padding:25px;
+
+    margin-bottom:25px;
+
+    text-align:center;
+
+    box-shadow:
+    0 0 20px
+    rgba(0,140,255,0.15);
+
+}
+
+.welcome-box h2{
+
+    color:#36aaff;
+
+    margin-bottom:12px;
+
+    font-size:25px;
+
+}
+
+.welcome-box p{
+
+    color:#c9ddf5;
+
+    line-height:1.7;
+
+    font-size:15px;
+
+}
+
+
+/* =========================================================
+   INSTRUCTION GRID
+========================================================= */
+
+.instruction-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(2,1fr);
+
+    gap:20px;
+
+    margin-bottom:30px;
+
+}
+
+
+/* =========================================================
+   INSTRUCTION CARD
+========================================================= */
+
+.instruction-card{
+
+    background:
+    linear-gradient(
+        145deg,
+        #071b42,
+        #04102a
+    );
+
+    border:
+    1px solid
+    #1459a5;
+
+    border-radius:15px;
+
+    padding:25px;
+
+    min-height:190px;
+
+    box-shadow:
+    0 0 18px
+    rgba(0,140,255,0.12);
+
+    transition:0.3s;
+
+}
+
+.instruction-card:hover{
+
+    border-color:#36aaff;
+
+    box-shadow:
+    0 0 25px
+    rgba(0,160,255,0.28);
+
+    transform:
+    translateY(-3px);
+
+}
+
+
+/* =========================================================
+   CARD ICON
+========================================================= */
+
+.card-icon{
+
+    width:48px;
+
+    height:48px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:
+    linear-gradient(
+        135deg,
+        #006eff,
+        #00aaff
+    );
+
+    border-radius:12px;
+
+    font-size:24px;
+
+    margin-bottom:16px;
+
+    box-shadow:
+    0 0 15px
+    rgba(0,160,255,0.25);
+
+}
+
+
+/* =========================================================
+   CARD TITLE
+========================================================= */
+
+.instruction-card h3{
+
+    color:#ffffff;
+
+    font-size:20px;
+
+    margin-bottom:10px;
+
+}
+
+.instruction-card p{
+
+    color:#b9d4f5;
+
+    line-height:1.7;
+
+    font-size:14px;
+
+}
+
+
+/* =========================================================
+   STEP LIST
+========================================================= */
+
+.steps-box{
+
+    background:
+    linear-gradient(
+        145deg,
+        #071b42,
+        #04102a
+    );
+
+    border:
+    1px solid
+    #1459a5;
+
+    border-radius:15px;
+
+    padding:28px;
+
+    margin-bottom:25px;
+
+    box-shadow:
+    0 0 20px
+    rgba(0,140,255,0.12);
+
+}
+
+.steps-box h2{
+
+    color:#36aaff;
+
+    text-align:center;
+
+    margin-bottom:25px;
+
+    font-size:25px;
+
+}
+
+.step{
+
+    display:flex;
+
+    align-items:flex-start;
+
+    gap:18px;
+
+    padding:17px 0;
+
+    border-bottom:
+    1px solid
+    rgba(20,89,165,0.35);
+
+}
+
+.step:last-child{
+
+    border-bottom:none;
+
+}
+
+.step-number{
+
+    min-width:38px;
+
+    height:38px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    border-radius:50%;
+
+    background:
+    linear-gradient(
+        135deg,
+        #006eff,
+        #00aaff
+    );
+
+    color:white;
+
+    font-weight:bold;
+
+    box-shadow:
+    0 0 12px
+    rgba(0,160,255,0.25);
+
+}
+
+.step-content h3{
+
+    color:#ffffff;
+
+    margin-bottom:6px;
+
+    font-size:17px;
+
+}
+
+.step-content p{
+
+    color:#b9d4f5;
+
+    line-height:1.6;
+
+    font-size:14px;
+
+}
+
+
+/* =========================================================
+   IMPORTANT BOX
+========================================================= */
+
+.important-box{
+
+    background:
+    linear-gradient(
+        145deg,
+        #071b42,
+        #04102a
+    );
+
+    border:
+    1px solid
+    #36aaff;
+
+    border-radius:15px;
+
+    padding:25px;
+
+    margin-bottom:30px;
+
+    box-shadow:
+    0 0 20px
+    rgba(0,140,255,0.18);
+
+}
+
+.important-box h2{
+
+    color:#36aaff;
+
+    margin-bottom:15px;
+
+    text-align:center;
+
+}
+
+.important-box ul{
+
+    margin:0;
+
+    padding-left:22px;
+
+}
+
+.important-box li{
+
+    color:#c9ddf5;
+
+    line-height:1.8;
+
+    margin-bottom:7px;
+
+}
+
+
+/* =========================================================
+   READY BOX
+========================================================= */
+
+.ready-box{
+
+    text-align:center;
+
+    background:
+    linear-gradient(
+        145deg,
+        #071b42,
+        #04102a
+    );
+
+    border:
+    1px solid
+    #1459a5;
+
+    border-radius:15px;
+
+    padding:30px;
+
+    box-shadow:
+    0 0 20px
+    rgba(0,140,255,0.15);
+
+}
+
+.ready-box h2{
+
+    color:#ffffff;
+
+    margin-bottom:10px;
+
+    font-size:25px;
+
+}
+
+.ready-box p{
+
+    color:#b9d4f5;
+
+    margin-bottom:25px;
+
+    line-height:1.6;
+
+}
+
+
+/* =========================================================
+   BUTTON AREA
+========================================================= */
+
+.button-area{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:15px;
+
+    flex-wrap:wrap;
+
+}
+
+
+/* =========================================================
+   COMMON BUTTON
+========================================================= */
+
+.action-btn{
+
+    display:inline-block;
+
+    padding:13px 30px;
+
+    color:white;
+
+    text-decoration:none;
+
+    border-radius:7px;
+
+    font-weight:bold;
+
+    transition:0.3s;
+
+}
+
+
+/* =========================================================
+   BACK BUTTON
+========================================================= */
+
+.back-btn{
+
+    background:
+    linear-gradient(
+        90deg,
+        #455a64,
+        #607d8b
+    );
+
+}
+
+.back-btn:hover{
+
+    transform:
+    translateY(-2px);
+
+    box-shadow:
+    0 0 18px
+    rgba(96,125,139,0.6);
+
+}
+
+
+/* =========================================================
+   START BUTTON
+========================================================= */
+
+.start-btn{
+
+    background:
+    linear-gradient(
+        90deg,
+        #006eff,
+        #00aaff
+    );
+
+    box-shadow:
+    0 0 15px
+    rgba(0,140,255,0.3);
+
+}
+
+.start-btn:hover{
+
+    transform:
+    translateY(-2px);
+
+    box-shadow:
+    0 0 22px
+    rgba(0,170,255,0.7);
+
+}
+
+
+/* =========================================================
+   ANIMATION
+========================================================= */
+
+.instruction-card,
+.steps-box,
+.important-box,
+.ready-box{
+
+    animation:
+    fadeUp
+    0.5s
+    ease;
+
+}
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+
+        transform:
+        translateY(15px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:
+        translateY(0);
+
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:700px){
+
+    .instruction-container{
+
+        width:92%;
+
+        padding:
+        30px 0 50px;
+
+    }
+
+    .instruction-header h1{
+
+        font-size:30px;
+
+    }
+
+    .instruction-header p{
+
+        font-size:14px;
+
+    }
+
+    .instruction-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .instruction-card{
+
+        min-height:auto;
+
+    }
+
+    .steps-box,
+    .important-box,
+    .ready-box{
+
+        padding:20px;
+
+    }
+
+    .step{
+
+        gap:12px;
+
+    }
+
+    .action-btn{
+
+        width:100%;
+
+        text-align:center;
+
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media(max-width:400px){
+
+    .instruction-header h1{
+
+        font-size:26px;
+
+    }
+
+    .instruction-card h3{
+
+        font-size:18px;
+
+    }
+
+    .steps-box h2,
+    .important-box h2,
+    .ready-box h2{
+
+        font-size:21px;
+
+    }
+
+}
+
+</style>
+
+
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
+<div class="instruction-container">
+
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <div class="instruction-header">
+
+        <h1>
+            Interview <span>Instructions</span>
+        </h1>
+
+        <p>
+            Please read the following instructions carefully
+            before starting your AI-powered interview.
+        </p>
+
+    </div>
+
+
+    <!-- =====================================================
+         WELCOME
+    ====================================================== -->
+
+    <div class="welcome-box">
+
+        <h2>
+            🎯 Welcome to Interview Mirror
+        </h2>
+
+        <p>
+            You are about to begin a practice interview
+            with our AI-powered Interview Mirror system.
+            Answer each question clearly and confidently.
+            Your responses will be evaluated and included
+            in your interview report.
+        </p>
+
+    </div>
+
+
+    <!-- =====================================================
+         INSTRUCTION CARDS
+    ====================================================== -->
+
+    <div class="instruction-grid">
+
+
+        <!-- CAMERA -->
+
+        <div class="instruction-card">
+
+            <div class="card-icon">
+                📷
+            </div>
+
+            <h3>
+                Camera Access
+            </h3>
+
+            <p>
+                Please allow camera access when your browser
+                asks for permission. The camera is used during
+                the interview to monitor your interview session
+                and provide a better practice experience.
+            </p>
+
+        </div>
+
+
+        <!-- MICROPHONE -->
+
+        <div class="instruction-card">
+
+            <div class="card-icon">
+                🎤
+            </div>
+
+            <h3>
+                Microphone Access
+            </h3>
+
+            <p>
+                Please allow microphone access so that you can
+                answer the interview questions using your voice.
+                Speak clearly and at a comfortable volume.
+            </p>
+
+        </div>
+
+
+        <!-- SPEAK CLEARLY -->
+
+        <div class="instruction-card">
+
+            <div class="card-icon">
+                🗣️
+            </div>
+
+            <h3>
+                Speak Clearly
+            </h3>
+
+            <p>
+                Answer each question in a clear and complete
+                manner. Avoid speaking too quickly and try to
+                explain your answer using simple and professional
+                language.
+            </p>
+
+        </div>
+
+
+        <!-- MOVEMENT -->
+
+        <div class="instruction-card">
+
+            <div class="card-icon">
+                👁️
+            </div>
+
+            <h3>
+                Maintain Attention
+            </h3>
+
+            <p>
+                Try to maintain a natural posture and keep your
+                attention toward the camera. Avoid unnecessary
+                movement during the interview.
+            </p>
+
+        </div>
+
+
+        <!-- ONE QUESTION -->
+
+        <div class="instruction-card">
+
+            <div class="card-icon">
+                ❓
+            </div>
+
+            <h3>
+                Answer One Question at a Time
+            </h3>
+
+            <p>
+                Listen carefully to each question and provide
+                your answer before moving to the next question.
+                Make sure your answer is related to the question.
+            </p>
+
+        </div>
+
+
+        <!-- AI EVALUATION -->
+
+        <div class="instruction-card">
+
+            <div class="card-icon">
+                🤖
+            </div>
+
+            <h3>
+                AI Evaluation
+            </h3>
+
+            <p>
+                Your answers may be evaluated by the AI system
+                based on relevance, correctness and quality.
+                The evaluation will be used to generate your
+                interview report.
+            </p>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- =====================================================
+         HOW IT WORKS
+    ====================================================== -->
+
+    <div class="steps-box">
+
+        <h2>
+            🚀 How the Interview Works
+        </h2>
+
+
+        <div class="step">
+
+            <div class="step-number">
+                1
+            </div>
+
+            <div class="step-content">
+
+                <h3>
+                    Start the Interview
+                </h3>
+
+                <p>
+                    Click the Start Interview button below
+                    to enter the interview screen.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="step">
+
+            <div class="step-number">
+                2
+            </div>
+
+            <div class="step-content">
+
+                <h3>
+                    Allow Permissions
+                </h3>
+
+                <p>
+                    Allow camera and microphone permissions
+                    when requested by your browser.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="step">
+
+            <div class="step-number">
+                3
+            </div>
+
+            <div class="step-content">
+
+                <h3>
+                    Listen to the Question
+                </h3>
+
+                <p>
+                    Read or listen carefully to the question
+                    displayed by the interview system.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="step">
+
+            <div class="step-number">
+                4
+            </div>
+
+            <div class="step-content">
+
+                <h3>
+                    Give Your Answer
+                </h3>
+
+                <p>
+                    Speak your answer clearly into the
+                    microphone. Take a moment to organize
+                    your thoughts before answering.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="step">
+
+            <div class="step-number">
+                5
+            </div>
+
+            <div class="step-content">
+
+                <h3>
+                    AI Evaluates Your Answer
+                </h3>
+
+                <p>
+                    The system sends your answer for AI
+                    evaluation and displays feedback about
+                    your response.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="step">
+
+            <div class="step-number">
+                6
+            </div>
+
+            <div class="step-content">
+
+                <h3>
+                    Continue to the Next Question
+                </h3>
+
+                <p>
+                    After reviewing the evaluation, continue
+                    with the next interview question until
+                    all questions are completed.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="step">
+
+            <div class="step-number">
+                7
+            </div>
+
+            <div class="step-content">
+
+                <h3>
+                    View Your Result
+                </h3>
+
+                <p>
+                    After completing the interview, you can
+                    view your interview performance and
+                    detailed answers in the result/report page.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         IMPORTANT INSTRUCTIONS
+    ====================================================== -->
+
+    <div class="important-box">
+
+        <h2>
+            ⚠️ Important Instructions
+        </h2>
+
+        <ul>
+
+            <li>
+                Make sure your camera and microphone are
+                working before starting.
+            </li>
+
+            <li>
+                Use a stable internet connection for the
+                best experience.
+            </li>
+
+            <li>
+                Speak clearly and avoid unnecessary background
+                noise.
+            </li>
+
+            <li>
+                Read each question carefully before answering.
+            </li>
+
+            <li>
+                Try to provide complete and relevant answers.
+            </li>
+
+            <li>
+                Avoid refreshing or closing the interview page
+                while an interview is in progress.
+            </li>
+
+            <li>
+                Complete the interview questions to generate
+                an accurate interview result.
+            </li>
+
+        </ul>
+
+    </div>
+
+
+    <!-- =====================================================
+         READY
+    ====================================================== -->
+
+    <div class="ready-box">
+
+        <h2>
+            🎤 Ready to Begin?
+        </h2>
+
+        <p>
+            Make sure you have read all the instructions.
+            When you are ready, start your interview.
+        </p>
+
+
+        <!-- =================================================
+             BUTTONS
+        ================================================= -->
+
+        <div class="button-area">
+
+
+            <!-- BACK -->
+
+            <a
+                href="{{ url_for('questions') }}"
+                class="action-btn back-btn"
+            >
+
+                ← Back to Questions
+
+            </a>
+
+
+            <!-- START -->
+
+            <a
+                href="{{ url_for('listen') }}"
+                class="action-btn start-btn"
+            >
+
+                🎤 Start Interview →
+
+            </a>
+
+
+        </div>
+
+    </div>
+
+
+</div>
+
+{% endblock %}

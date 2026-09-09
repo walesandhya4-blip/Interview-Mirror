@@ -1,0 +1,1132 @@
+{% extends "base.html" %}
+
+{% block title %}
+Interview Mirror - Comparison Dashboard
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* ================= TITLE ================= */
+
+.title{
+    text-align:center;
+
+    padding:45px 20px 30px;
+
+    background:
+    radial-gradient(
+        circle at center,
+        #063b80,
+        #020b24 65%
+    );
+}
+
+.title h1{
+    font-size:40px;
+    margin-bottom:12px;
+}
+
+.title h1 span{
+    color:#0797ff;
+}
+
+.title p{
+    color:#b9d4f5;
+    font-size:17px;
+}
+
+
+/* ================= MAIN ================= */
+
+.container{
+    width:1100px;
+    max-width:92%;
+
+    margin:20px auto 60px;
+}
+
+
+/* ================= SECTION TITLE ================= */
+
+.section_title{
+    text-align:center;
+
+    color:#4db7ff;
+
+    font-size:27px;
+
+    margin:30px 0 20px;
+}
+
+
+/* ================= SUMMARY ================= */
+
+.summary{
+    display:flex;
+
+    justify-content:center;
+
+    gap:20px;
+
+    flex-wrap:wrap;
+
+    margin-bottom:35px;
+}
+
+.box{
+
+    width:250px;
+
+    padding:25px 15px;
+
+    text-align:center;
+
+    background:
+    linear-gradient(145deg,#071b42,#04102a);
+
+    border:1px solid #1459a5;
+
+    border-radius:12px;
+
+    box-shadow:
+    0 5px 20px rgba(0,0,0,0.35);
+
+    transition:0.3s;
+}
+
+.box:hover{
+
+    transform:translateY(-5px);
+
+    border-color:#079cff;
+
+    box-shadow:
+    0 0 22px rgba(0,140,255,0.4);
+}
+
+.box h3{
+
+    color:#a8c9eb;
+
+    margin-bottom:15px;
+
+    font-size:18px;
+}
+
+.box p{
+
+    color:#4db7ff;
+
+    font-size:34px;
+
+    font-weight:bold;
+}
+
+
+/* ================= IMPROVEMENT ================= */
+
+.improvement p{
+    color:#31e981;
+}
+
+.decreased p{
+    color:#ff6b6b;
+}
+
+
+/* ================= PERFORMANCE CARD ================= */
+
+.performance_card{
+
+    background:
+    linear-gradient(145deg,#071b42,#04102a);
+
+    border:1px solid #1459a5;
+
+    border-radius:14px;
+
+    padding:25px;
+
+    margin-bottom:30px;
+
+    box-shadow:
+    0 5px 25px rgba(0,0,0,0.4);
+
+    overflow-x:auto;
+}
+
+.performance_card:hover{
+
+    border-color:#079cff;
+
+    box-shadow:
+    0 0 25px rgba(0,140,255,0.35);
+}
+
+.performance_card h2{
+
+    color:#4db7ff;
+
+    text-align:center;
+
+    margin-bottom:20px;
+}
+
+
+/* ================= TABLE ================= */
+
+table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+    min-width:650px;
+
+    background:#020c22;
+}
+
+th{
+
+    background:
+    linear-gradient(90deg,#006eff,#0757a8);
+
+    color:white;
+
+    padding:14px;
+
+    border:1px solid #1a5c9e;
+}
+
+td{
+
+    padding:13px;
+
+    text-align:center;
+
+    color:#c7d9ed;
+
+    border:1px solid #173c66;
+}
+
+td:first-child{
+
+    text-align:left;
+
+    color:#66bdff;
+
+    font-weight:bold;
+}
+
+tr:hover td{
+
+    background:#061b3b;
+}
+
+
+/* ================= IMPROVED ================= */
+
+.improved{
+
+    color:#31e981;
+
+    font-weight:bold;
+
+    text-shadow:
+    0 0 8px rgba(49,233,129,0.3);
+}
+
+.not_improved{
+
+    color:#ff6b6b;
+
+    font-weight:bold;
+}
+
+
+/* ================= INTERVIEW DETAILS ================= */
+
+.details_card{
+
+    background:
+    linear-gradient(145deg,#071b42,#04102a);
+
+    border:1px solid #1459a5;
+
+    border-radius:14px;
+
+    padding:25px;
+
+    margin-bottom:30px;
+
+    box-shadow:
+    0 5px 25px rgba(0,0,0,0.4);
+}
+
+.details_card h2{
+
+    color:#4db7ff;
+
+    text-align:center;
+
+    margin-bottom:22px;
+}
+
+.details_grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:15px;
+}
+
+.detail_item{
+
+    background:#020c22;
+
+    border:1px solid #173c66;
+
+    border-radius:8px;
+
+    padding:15px;
+}
+
+.detail_item span{
+
+    display:block;
+
+    color:#7ea9d2;
+
+    font-size:13px;
+
+    margin-bottom:7px;
+}
+
+.detail_item strong{
+
+    color:#c7d9ed;
+
+    font-size:16px;
+}
+
+
+/* ================= ANALYSIS CARD ================= */
+
+.card{
+
+    background:
+    linear-gradient(145deg,#071b42,#04102a);
+
+    border:1px solid #1459a5;
+
+    border-radius:14px;
+
+    padding:30px;
+
+    margin-bottom:30px;
+
+    box-shadow:
+    0 5px 25px rgba(0,0,0,0.4);
+
+    transition:0.3s;
+}
+
+.card:hover{
+
+    border-color:#079cff;
+
+    box-shadow:
+    0 0 25px rgba(0,140,255,0.35);
+}
+
+.card h2{
+
+    color:#4db7ff;
+
+    margin-bottom:20px;
+
+    text-align:center;
+}
+
+.analysis p{
+
+    background:#020c22;
+
+    border-left:4px solid #0797ff;
+
+    padding:13px 15px;
+
+    margin:12px 0;
+
+    border-radius:5px;
+
+    color:#c7d9ed;
+
+    line-height:24px;
+}
+
+.analysis p b{
+
+    color:#66bdff;
+}
+
+
+/* ================= RESULT MESSAGE ================= */
+
+.result_message{
+
+    text-align:center;
+
+    margin:25px auto;
+
+    padding:20px;
+
+    width:90%;
+
+    background:
+    linear-gradient(90deg,#062f62,#063d78);
+
+    border:1px solid #087cff;
+
+    border-radius:10px;
+
+    box-shadow:
+    0 0 18px rgba(0,140,255,0.25);
+}
+
+.result_message h2{
+
+    color:#4db7ff;
+
+    margin-bottom:8px;
+}
+
+.result_message p{
+
+    color:#c7d9ed;
+}
+
+
+/* ================= NO PREVIOUS ================= */
+
+.no_previous{
+
+    text-align:center;
+
+    background:
+    linear-gradient(145deg,#071b42,#04102a);
+
+    border:1px solid #1459a5;
+
+    border-radius:14px;
+
+    padding:50px 25px;
+
+    margin:40px auto;
+
+    box-shadow:
+    0 5px 25px rgba(0,0,0,0.4);
+}
+
+.no_previous h2{
+
+    color:#4db7ff;
+
+    margin-bottom:15px;
+}
+
+.no_previous p{
+
+    color:#b9d4f5;
+
+    font-size:16px;
+
+    line-height:25px;
+}
+
+.new_interview_btn{
+
+    display:inline-block;
+
+    margin-top:22px;
+
+    padding:12px 25px;
+
+    background:#087cff;
+
+    color:white;
+
+    text-decoration:none;
+
+    border-radius:7px;
+
+    transition:0.3s;
+}
+
+.new_interview_btn:hover{
+
+    background:#1597ff;
+
+    box-shadow:
+    0 0 18px rgba(8,124,255,0.6);
+}
+
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:700px){
+
+    .summary{
+
+        flex-direction:column;
+
+        align-items:center;
+    }
+
+    .box{
+
+        width:80%;
+
+        max-width:300px;
+    }
+
+    .details_grid{
+
+        grid-template-columns:1fr;
+    }
+
+}
+
+@media(max-width:600px){
+
+    .title h1{
+
+        font-size:32px;
+    }
+
+    .container{
+
+        max-width:94%;
+    }
+
+}
+
+</style>
+
+
+<!-- ================= TITLE ================= -->
+
+<div class="title">
+
+    <h1>
+        Interview <span>Comparison Dashboard</span>
+    </h1>
+
+    <p>
+        Compare your last and current interview performance.
+    </p>
+
+</div>
+
+
+<div class="container">
+
+
+{% if current and previous %}
+
+
+<!-- ================= SUMMARY ================= -->
+
+<h2 class="section_title">
+    Interview Summary
+</h2>
+
+
+<div class="summary">
+
+
+    <div class="box">
+
+        <h3>
+            Previous Score
+        </h3>
+
+        <p>
+            {{ previous.accuracy|round(2) }}%
+        </p>
+
+    </div>
+
+
+    <div class="box">
+
+        <h3>
+            Current Score
+        </h3>
+
+        <p>
+            {{ current.accuracy|round(2) }}%
+        </p>
+
+    </div>
+
+
+    <div class="box
+        {% if improvement >= 0 %}
+            improvement
+        {% else %}
+            decreased
+        {% endif %}
+    ">
+
+        <h3>
+            Improvement
+        </h3>
+
+        <p>
+
+            {% if improvement > 0 %}
+                +{{ improvement|round(2) }}%
+
+            {% elif improvement < 0 %}
+                {{ improvement|round(2) }}%
+
+            {% else %}
+                0%
+            {% endif %}
+
+        </p>
+
+    </div>
+
+
+</div>
+
+
+<!-- ================= INTERVIEW DETAILS ================= -->
+
+<div class="details_card">
+
+    <h2>
+        Interview Details
+    </h2>
+
+
+    <div class="details_grid">
+
+
+        <div class="detail_item">
+
+            <span>
+                Previous Interview
+            </span>
+
+            <strong>
+                {{ previous.interview_date }}
+            </strong>
+
+        </div>
+
+
+        <div class="detail_item">
+
+            <span>
+                Current Interview
+            </span>
+
+            <strong>
+                {{ current.interview_date }}
+            </strong>
+
+        </div>
+
+
+        <div class="detail_item">
+
+            <span>
+                Department
+            </span>
+
+            <strong>
+                {{ current.department }}
+            </strong>
+
+        </div>
+
+
+        <div class="detail_item">
+
+            <span>
+                Domain
+            </span>
+
+            <strong>
+                {{ current.domain }}
+            </strong>
+
+        </div>
+
+
+        <div class="detail_item">
+
+            <span>
+                Category
+            </span>
+
+            <strong>
+                {{ current.category }}
+            </strong>
+
+        </div>
+
+
+        <div class="detail_item">
+
+            <span>
+                Difficulty
+            </span>
+
+            <strong>
+                {{ current.difficulty }}
+            </strong>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+<!-- ================= PERFORMANCE ================= -->
+
+<div class="performance_card">
+
+    <h2>
+        Previous vs Current Performance
+    </h2>
+
+
+    <table>
+
+        <tr>
+
+            <th>
+                Performance
+            </th>
+
+            <th>
+                Previous
+            </th>
+
+            <th>
+                Current
+            </th>
+
+            <th>
+                Improvement
+            </th>
+
+        </tr>
+
+
+        <!-- TOTAL QUESTIONS -->
+
+        <tr>
+
+            <td>
+                Total Questions
+            </td>
+
+            <td>
+                {{ previous.total_questions }}
+            </td>
+
+            <td>
+                {{ current.total_questions }}
+            </td>
+
+            <td>
+
+                {% set total_diff =
+                    current.total_questions
+                    - previous.total_questions
+                %}
+
+                {% if total_diff > 0 %}
+
+                    <span class="improved">
+                        +{{ total_diff }}
+                    </span>
+
+                {% elif total_diff < 0 %}
+
+                    <span class="not_improved">
+                        {{ total_diff }}
+                    </span>
+
+                {% else %}
+
+                    0
+
+                {% endif %}
+
+            </td>
+
+        </tr>
+
+
+        <!-- CORRECT -->
+
+        <tr>
+
+            <td>
+                Correct Answers
+            </td>
+
+            <td>
+                {{ previous.correct_answers }}
+            </td>
+
+            <td>
+                {{ current.correct_answers }}
+            </td>
+
+            <td>
+
+                {% set correct_diff =
+                    current.correct_answers
+                    - previous.correct_answers
+                %}
+
+                {% if correct_diff > 0 %}
+
+                    <span class="improved">
+                        +{{ correct_diff }}
+                    </span>
+
+                {% elif correct_diff < 0 %}
+
+                    <span class="not_improved">
+                        {{ correct_diff }}
+                    </span>
+
+                {% else %}
+
+                    0
+
+                {% endif %}
+
+            </td>
+
+        </tr>
+
+
+        <!-- WRONG -->
+
+        <tr>
+
+            <td>
+                Wrong Answers
+            </td>
+
+            <td>
+                {{ previous.wrong_answers }}
+            </td>
+
+            <td>
+                {{ current.wrong_answers }}
+            </td>
+
+            <td>
+
+                {% set wrong_diff =
+                    current.wrong_answers
+                    - previous.wrong_answers
+                %}
+
+                {% if wrong_diff < 0 %}
+
+                    <span class="improved">
+                        {{ wrong_diff }}
+                    </span>
+
+                {% elif wrong_diff > 0 %}
+
+                    <span class="not_improved">
+                        +{{ wrong_diff }}
+                    </span>
+
+                {% else %}
+
+                    0
+
+                {% endif %}
+
+            </td>
+
+        </tr>
+
+
+        <!-- ACCURACY -->
+
+        <tr>
+
+            <td>
+                Overall Accuracy
+            </td>
+
+            <td>
+                {{ previous.accuracy|round(2) }}%
+            </td>
+
+            <td>
+                {{ current.accuracy|round(2) }}%
+            </td>
+
+            <td>
+
+                {% if improvement > 0 %}
+
+                    <span class="improved">
+                        +{{ improvement|round(2) }}%
+                    </span>
+
+                {% elif improvement < 0 %}
+
+                    <span class="not_improved">
+                        {{ improvement|round(2) }}%
+                    </span>
+
+                {% else %}
+
+                    0%
+
+                {% endif %}
+
+            </td>
+
+        </tr>
+
+
+    </table>
+
+</div>
+
+
+<!-- ================= FEEDBACK ================= -->
+
+<div class="card">
+
+    <h2>
+        Performance Analysis
+    </h2>
+
+
+    <div class="analysis">
+
+
+        {% if improvement > 0 %}
+
+        <p>
+            ✔ Your overall interview accuracy has improved from
+            <b>{{ previous.accuracy|round(2) }}%</b>
+            to
+            <b>{{ current.accuracy|round(2) }}%</b>.
+        </p>
+
+        {% elif improvement < 0 %}
+
+        <p>
+            ⚠ Your current interview accuracy is
+            <b>{{ current.accuracy|round(2) }}%</b>,
+            compared with
+            <b>{{ previous.accuracy|round(2) }}%</b>
+            in your previous interview.
+        </p>
+
+        {% else %}
+
+        <p>
+            ➖ Your accuracy is the same as your previous interview.
+        </p>
+
+        {% endif %}
+
+
+        <p>
+
+            ✔ Previous correct answers:
+            <b>{{ previous.correct_answers }}</b>
+
+            &nbsp;|&nbsp;
+
+            Current correct answers:
+            <b>{{ current.correct_answers }}</b>
+
+        </p>
+
+
+        <p>
+
+            ✔ Previous wrong answers:
+            <b>{{ previous.wrong_answers }}</b>
+
+            &nbsp;|&nbsp;
+
+            Current wrong answers:
+            <b>{{ current.wrong_answers }}</b>
+
+        </p>
+
+
+        <p>
+
+            ✔ Previous feedback:
+            <b>{{ previous.feedback }}</b>
+
+        </p>
+
+
+        <p>
+
+            ✔ Current feedback:
+            <b>{{ current.feedback }}</b>
+
+        </p>
+
+
+    </div>
+
+</div>
+
+
+<!-- ================= RESULT MESSAGE ================= -->
+
+<div class="result_message">
+
+
+    {% if improvement > 0 %}
+
+        <h2>
+            Great Progress! 🎯
+        </h2>
+
+        <p>
+
+            Your interview accuracy improved by
+
+            <b>
+                {{ improvement|round(2) }}%
+            </b>
+
+            compared with your last interview.
+
+        </p>
+
+
+    {% elif improvement < 0 %}
+
+        <h2>
+            Keep Practicing! 💪
+        </h2>
+
+        <p>
+
+            Your current accuracy is
+
+            <b>
+                {{ current.accuracy|round(2) }}%
+            </b>.
+
+            Keep practicing to improve your next interview.
+
+        </p>
+
+
+    {% else %}
+
+        <h2>
+            Keep Going! 🎯
+        </h2>
+
+        <p>
+
+            Your current interview has the same accuracy
+            as your previous interview.
+
+        </p>
+
+    {% endif %}
+
+
+</div>
+
+
+{% elif current and not previous %}
+
+
+<!-- ================= FIRST INTERVIEW ================= -->
+
+<div class="no_previous">
+
+    <h2>
+        Comparison Not Available Yet
+    </h2>
+
+    <p>
+
+        You have completed only one interview.
+
+        Complete one more interview to compare
+        your current performance with your previous interview.
+
+    </p>
+
+
+    <a href="/interviewsetup" class="new_interview_btn">
+
+        Start New Interview
+
+    </a>
+
+</div>
+
+
+{% else %}
+
+
+<!-- ================= NO INTERVIEWS ================= -->
+
+<div class="no_previous">
+
+    <h2>
+        No Interview Data Available
+    </h2>
+
+    <p>
+
+        Complete an interview first to view
+        your performance comparison.
+
+    </p>
+
+
+    <a href="/interviewsetup" class="new_interview_btn">
+
+        Start Interview
+
+    </a>
+
+</div>
+
+
+{% endif %}
+
+
+</div>
+
+{% endblock %}

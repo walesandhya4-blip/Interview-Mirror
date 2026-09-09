@@ -1,0 +1,861 @@
+{% extends "base.html" %}
+
+{% block title %}
+Interview Mirror - User Report
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* =========================================================
+   REPORT SECTION
+========================================================= */
+
+.report_section{
+
+    min-height:calc(100vh - 80px);
+
+    padding:45px 4% 70px;
+
+    background:
+
+    radial-gradient(
+        circle at 80% 20%,
+        #063e91 0%,
+        transparent 35%
+    ),
+
+    linear-gradient(
+        120deg,
+        #01091e,
+        #031a43,
+        #001d55
+    );
+
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+
+/* =========================================================
+   DECORATIVE BLUE CIRCLE
+========================================================= */
+
+.report_section::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:600px;
+
+    height:600px;
+
+    border-radius:50%;
+
+    border:
+    2px solid
+    rgba(0,136,255,0.25);
+
+    right:-180px;
+
+    top:-170px;
+
+    box-shadow:
+
+    0 0 40px #006eff,
+
+    inset 0 0 40px #006eff;
+
+    pointer-events:none;
+
+}
+
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.report_title{
+
+    text-align:center;
+
+    position:relative;
+
+    z-index:2;
+
+    margin-bottom:35px;
+
+    animation:fadeUp 0.8s ease;
+
+}
+
+
+.report_title h1{
+
+    font-size:42px;
+
+    margin-bottom:10px;
+
+}
+
+
+.report_title h1 span{
+
+    color:#0797ff;
+
+}
+
+
+.report_title p{
+
+    color:#c4d7f5;
+
+    font-size:17px;
+
+    line-height:1.6;
+
+}
+
+
+/* =========================================================
+   REPORT CONTAINER
+========================================================= */
+
+.report_container{
+
+    max-width:1400px;
+
+    margin:auto;
+
+    padding:30px;
+
+    background:
+
+    linear-gradient(
+        145deg,
+        #071b42,
+        #04102a
+    );
+
+    border:
+    1px solid #1459a5;
+
+    border-radius:15px;
+
+    box-shadow:
+
+    0 8px 30px
+    rgba(0,0,0,0.5),
+
+    0 0 25px
+    rgba(0,100,255,0.15);
+
+    position:relative;
+
+    z-index:2;
+
+    animation:fadeUp 0.8s ease;
+
+}
+
+
+.report_container:hover{
+
+    border-color:#079cff;
+
+    box-shadow:
+
+    0 0 28px
+    rgba(0,140,255,0.35);
+
+}
+
+
+/* =========================================================
+   TOP INFO
+========================================================= */
+
+.report_top{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:25px;
+
+    flex-wrap:wrap;
+
+    gap:15px;
+
+}
+
+
+.report_top h2{
+
+    color:#4db7ff;
+
+    font-size:25px;
+
+}
+
+
+/* =========================================================
+   TOTAL USERS
+========================================================= */
+
+.total_users{
+
+    background:#061733;
+
+    border:
+    1px solid #1459a5;
+
+    padding:
+    12px 20px;
+
+    border-radius:8px;
+
+    color:white;
+
+    font-size:16px;
+
+}
+
+
+.total_users span{
+
+    color:#00aaff;
+
+    font-weight:bold;
+
+}
+
+
+/* =========================================================
+   TABLE WRAPPER
+========================================================= */
+
+.table_wrapper{
+
+    width:100%;
+
+    overflow-x:auto;
+
+    border-radius:10px;
+
+    border:
+    1px solid #1459a5;
+
+    scrollbar-width:thin;
+
+}
+
+
+/* =========================================================
+   TABLE
+========================================================= */
+
+table{
+
+    width:100%;
+
+    min-width:950px;
+
+    border-collapse:collapse;
+
+    background:#061733;
+
+}
+
+
+/* =========================================================
+   TABLE HEADER
+========================================================= */
+
+thead{
+
+    background:
+
+    linear-gradient(
+        90deg,
+        #003b8f,
+        #006eff
+    );
+
+}
+
+
+th{
+
+    padding:
+    16px 14px;
+
+    text-align:center;
+
+    color:white;
+
+    font-size:15px;
+
+    border-right:
+    1px solid
+    rgba(255,255,255,0.15);
+
+    white-space:nowrap;
+
+}
+
+
+/* =========================================================
+   TABLE BODY
+========================================================= */
+
+td{
+
+    padding:
+    14px 12px;
+
+    text-align:center;
+
+    color:#dcecff;
+
+    border-bottom:
+    1px solid #163b69;
+
+    border-right:
+    1px solid #163b69;
+
+    font-size:14px;
+
+    white-space:nowrap;
+
+}
+
+
+tbody tr{
+
+    transition:0.3s;
+
+}
+
+
+tbody tr:hover{
+
+    background:#0b2855;
+
+    box-shadow:
+    inset 0 0 15px
+    rgba(0,140,255,0.15);
+
+}
+
+
+/* =========================================================
+   ID
+========================================================= */
+
+.id{
+
+    color:#00aaff;
+
+    font-weight:bold;
+
+    width:80px;
+
+}
+
+
+/* =========================================================
+   NAME
+========================================================= */
+
+.name{
+
+    min-width:180px;
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+.mobile{
+
+    min-width:130px;
+
+}
+
+
+/* =========================================================
+   EMAIL
+========================================================= */
+
+.email{
+
+    min-width:230px;
+
+}
+
+
+/* =========================================================
+   GENDER
+========================================================= */
+
+.gender{
+
+    min-width:120px;
+
+}
+
+
+/* =========================================================
+   ADDRESS
+========================================================= */
+
+.address{
+
+    white-space:normal;
+
+    min-width:220px;
+
+    max-width:350px;
+
+    text-align:left;
+
+    line-height:1.5;
+
+}
+
+
+/* =========================================================
+   EMPTY MESSAGE
+========================================================= */
+
+.no_data{
+
+    text-align:center;
+
+    padding:40px;
+
+    color:#9db9d9;
+
+    font-size:17px;
+
+}
+
+
+/* =========================================================
+   DASHBOARD AREA
+========================================================= */
+
+.dashboard_area{
+
+    text-align:center;
+
+    margin-top:30px;
+
+}
+
+
+/* =========================================================
+   DASHBOARD BUTTON
+========================================================= */
+
+.dashboard_btn{
+
+    padding:
+    13px 28px;
+
+    border:none;
+
+    border-radius:7px;
+
+    background:
+
+    linear-gradient(
+        90deg,
+        #006eff,
+        #00aaff
+    );
+
+    color:white;
+
+    font-size:15px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:0.3s;
+
+    box-shadow:
+    0 0 15px
+    rgba(0,140,255,0.3);
+
+}
+
+
+.dashboard_btn:hover{
+
+    transform:
+    translateY(-3px);
+
+    box-shadow:
+
+    0 0 15px #00aaff,
+
+    0 0 30px #006eff;
+
+}
+
+
+/* =========================================================
+   ANIMATION
+========================================================= */
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(25px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE 900px
+========================================================= */
+
+@media(max-width:900px){
+
+    .report_section{
+
+        padding:
+        40px 20px 60px;
+
+    }
+
+    .report_container{
+
+        padding:20px;
+
+    }
+
+    .report_title h1{
+
+        font-size:34px;
+
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE 600px
+========================================================= */
+
+@media(max-width:600px){
+
+    .report_section{
+
+        padding:
+        35px 15px 50px;
+
+    }
+
+    .report_container{
+
+        padding:15px;
+
+    }
+
+    .report_top{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+    }
+
+    .report_top h2{
+
+        font-size:21px;
+
+    }
+
+    .total_users{
+
+        width:100%;
+
+        text-align:center;
+
+    }
+
+    .dashboard_btn{
+
+        width:90%;
+
+    }
+
+}
+
+</style>
+
+
+<!-- =========================================================
+     REPORT SECTION
+========================================================= -->
+
+<section class="report_section">
+
+
+    <!-- =====================================================
+         TITLE
+    ====================================================== -->
+
+    <div class="report_title">
+
+        <h1>
+
+            Registration
+
+            <span>
+                Report
+            </span>
+
+        </h1>
+
+        <p>
+
+            View all registered user details.
+
+        </p>
+
+    </div>
+
+
+    <!-- =====================================================
+         REPORT CONTAINER
+    ====================================================== -->
+
+    <div class="report_container">
+
+
+        <!-- =================================================
+             TOP INFORMATION
+        ================================================== -->
+
+        <div class="report_top">
+
+            <h2>
+
+                All Registration Details
+
+            </h2>
+
+
+            <div class="total_users">
+
+                Total Users :
+
+                <span>
+
+                    {{ users|length }}
+
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             TABLE
+        ================================================== -->
+
+        <div class="table_wrapper">
+
+            <table>
+
+
+                <!-- =================================================
+                     TABLE HEADER
+                ================================================== -->
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            ID
+                        </th>
+
+                        <th>
+                            Name
+                        </th>
+
+                        <th>
+                            Mobile
+                        </th>
+
+                        <th>
+                            Email
+                        </th>
+
+                        <th>
+                            Gender
+                        </th>
+
+                        <th>
+                            Address
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <!-- =================================================
+                     TABLE BODY
+                ================================================== -->
+
+                <tbody>
+
+                {% if users %}
+
+
+                    {% for user in users %}
+
+                    <tr>
+
+
+                        <!-- ID -->
+
+                        <td class="id">
+                        1
+                    </td>
+
+
+                        <!-- NAME -->
+
+                        <td class="name">
+
+                            {{ user.name or '-' }}
+
+                        </td>
+
+
+                        <!-- MOBILE -->
+
+                        <td class="mobile">
+                         {{ user.phone or '-' }}
+                        </td>
+
+
+                        <!-- EMAIL -->
+
+                        <td class="email">
+
+                            {{ user.email or '-' }}
+
+                        </td>
+
+
+                        <!-- GENDER -->
+
+                        <td class="gender">
+
+                            {{ user.gender or '-' }}
+
+                        </td>
+
+
+                        <!-- ADDRESS -->
+
+                        <td class="address">
+                        {{ user.location or '-' }}
+                        </td>
+
+
+                    </tr>
+
+                    {% endfor %}
+
+
+                {% else %}
+
+
+                    <!-- =================================================
+                         NO DATA
+                    ================================================== -->
+
+                    <tr>
+
+                        <td
+                            colspan="6"
+                            class="no_data"
+                        >
+
+                            No registration data available.
+
+                        </td>
+
+                    </tr>
+
+
+                {% endif %}
+
+                </tbody>
+
+
+            </table>
+
+        </div>
+
+
+        <!-- =================================================
+             DASHBOARD BUTTON
+        ================================================== -->
+
+        <div class="dashboard_area">
+
+            <button
+
+                class="dashboard_btn"
+
+                onclick="
+                    window.location.href='/dashboard'
+                "
+
+            >
+
+                ← Back to Dashboard
+
+            </button>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,608 @@
+{% extends "base.html" %}
+
+{% block title %}
+Interview Mirror - Contact Us
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* ================= CONTACT PAGE ================= */
+
+.contact-page{
+
+    min-height:calc(100vh - 80px);
+
+    background:
+    radial-gradient(
+        circle at 80% 20%,
+        #063b80 0%,
+        transparent 30%
+    ),
+    linear-gradient(
+        135deg,
+        #020817,
+        #031a43,
+        #020b24
+    );
+
+    color:white;
+
+    padding-bottom:60px;
+}
+
+
+/* ================= TITLE ================= */
+
+.title{
+
+    text-align:center;
+
+    padding:45px 20px 30px;
+
+    background:
+    radial-gradient(
+        circle at center,
+        #063b80,
+        #020b24 65%
+    );
+}
+
+.title h1{
+
+    font-size:40px;
+
+    margin-bottom:12px;
+}
+
+.title h1 span{
+
+    color:#0797ff;
+}
+
+.title p{
+
+    color:#b9d4f5;
+
+    font-size:17px;
+}
+
+
+/* ================= CONTACT BOX ================= */
+
+.contact_box{
+
+    width:550px;
+
+    max-width:90%;
+
+    margin:25px auto;
+
+    padding:30px;
+
+    background:
+    linear-gradient(
+        145deg,
+        #071b42,
+        #04102a
+    );
+
+    border:1px solid #1459a5;
+
+    border-radius:14px;
+
+    box-shadow:
+    0 5px 25px rgba(0,0,0,0.4);
+
+    transition:0.3s;
+}
+
+.contact_box:hover{
+
+    border-color:#079cff;
+
+    box-shadow:
+    0 0 28px rgba(0,140,255,0.35);
+}
+
+
+/* ================= CONTACT HEADING ================= */
+
+.contact_box h2{
+
+    text-align:center;
+
+    color:#4db7ff;
+
+    margin-bottom:25px;
+
+    font-size:27px;
+}
+
+
+/* ================= LABEL ================= */
+
+.contact_box label{
+
+    display:block;
+
+    color:#c7d9ed;
+
+    font-weight:bold;
+
+    margin-bottom:7px;
+}
+
+
+/* ================= INPUT ================= */
+
+.contact_box input[type=text],
+.contact_box input[type=email],
+.contact_box input[type=tel],
+.contact_box textarea{
+
+    width:100%;
+
+    padding:12px;
+
+    margin-top:5px;
+
+    margin-bottom:18px;
+
+    border:1px solid #245c99;
+
+    border-radius:6px;
+
+    background:#020c22;
+
+    color:white;
+
+    font-size:15px;
+
+    outline:none;
+
+    transition:0.3s;
+}
+
+
+/* ================= TEXTAREA ================= */
+
+.contact_box textarea{
+
+    height:120px;
+
+    resize:vertical;
+
+    font-family:Arial,sans-serif;
+}
+
+
+/* ================= PLACEHOLDER ================= */
+
+.contact_box input::placeholder,
+.contact_box textarea::placeholder{
+
+    color:#7693b8;
+}
+
+
+/* ================= INPUT FOCUS ================= */
+
+.contact_box input:focus,
+.contact_box textarea:focus{
+
+    border-color:#079cff;
+
+    box-shadow:
+    0 0 10px rgba(0,140,255,0.3);
+}
+
+
+/* ================= SEND BUTTON ================= */
+
+.send_btn{
+
+    width:100%;
+
+    padding:13px;
+
+    border:none;
+
+    border-radius:7px;
+
+    background:
+    linear-gradient(
+        90deg,
+        #006eff,
+        #00aaff
+    );
+
+    color:white;
+
+    font-size:16px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    box-shadow:
+    0 0 15px rgba(0,140,255,0.3);
+
+    transition:0.3s;
+}
+
+.send_btn:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:
+    0 0 15px #00aaff,
+    0 0 30px #006eff;
+}
+
+
+/* ================= CONTACT INFORMATION ================= */
+
+.info{
+
+    width:550px;
+
+    max-width:90%;
+
+    margin:25px auto 0;
+
+    padding:25px 30px;
+
+    background:
+    linear-gradient(
+        145deg,
+        #071b42,
+        #04102a
+    );
+
+    border:1px solid #1459a5;
+
+    border-radius:14px;
+
+    box-shadow:
+    0 5px 25px rgba(0,0,0,0.4);
+
+    transition:0.3s;
+}
+
+.info:hover{
+
+    border-color:#079cff;
+
+    box-shadow:
+    0 0 28px rgba(0,140,255,0.35);
+}
+
+
+/* ================= ICON ================= */
+
+.info_icon{
+
+    width:55px;
+
+    height:55px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    margin:0 auto 12px;
+
+    border-radius:50%;
+
+    background:
+    linear-gradient(
+        90deg,
+        #006eff,
+        #00aaff
+    );
+
+    font-size:25px;
+
+    box-shadow:
+    0 0 18px rgba(0,140,255,0.4);
+}
+
+
+/* ================= INFO HEADING ================= */
+
+.info h2{
+
+    text-align:center;
+
+    color:#4db7ff;
+
+    font-size:27px;
+
+    margin-bottom:20px;
+}
+
+
+/* ================= INFO TEXT ================= */
+
+.info p{
+
+    font-size:16px;
+
+    line-height:30px;
+
+    color:#c7d9ed;
+
+    border-bottom:1px solid #173c66;
+
+    padding:5px 0;
+}
+
+.info p:last-child{
+
+    border-bottom:none;
+}
+
+.info p b{
+
+    color:#66bdff;
+}
+
+
+/* ================= ANIMATION ================= */
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(25px);
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+    }
+
+}
+
+.title,
+.contact_box,
+.info{
+
+    animation:fadeUp 0.8s ease;
+}
+
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:600px){
+
+    .title h1{
+
+        font-size:34px;
+    }
+
+    .contact_box,
+    .info{
+
+        width:88%;
+
+        padding:25px;
+    }
+
+}
+
+</style>
+
+
+<div class="contact-page">
+
+
+    <!-- ================= TITLE ================= -->
+
+    <div class="title">
+
+        <h1>
+            Contact <span>Us</span>
+        </h1>
+
+        <p>
+            Have a question? We would love to hear from you.
+        </p>
+
+    </div>
+
+
+    <!-- ================= SEND MESSAGE ================= -->
+
+    <div class="contact_box">
+
+        <h2>
+            Send Your Message
+        </h2>
+
+
+        <form
+            action="/contact"
+            method="POST"
+        >
+
+
+            <!-- FULL NAME -->
+
+            <label for="name">
+                Full Name
+            </label>
+
+            <input
+                type="text"
+                id="name"
+                name="name"
+                placeholder="Enter Your Name"
+                autocomplete="name"
+                required
+            >
+
+
+            <!-- EMAIL -->
+
+            <label for="email">
+                Email Address
+            </label>
+
+            <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Enter Your Email"
+                autocomplete="email"
+                required
+            >
+
+
+            <!-- MOBILE -->
+
+            <label for="mobile">
+                Mobile Number
+            </label>
+
+            <input
+                type="tel"
+                id="mobile"
+                name="mobile"
+                placeholder="Enter 10 Digit Mobile Number"
+                maxlength="10"
+                minlength="10"
+                pattern="[0-9]{10}"
+                inputmode="numeric"
+                required
+            >
+
+
+            <!-- SUBJECT -->
+
+            <label for="subject">
+                Subject
+            </label>
+
+            <input
+                type="text"
+                id="subject"
+                name="subject"
+                placeholder="Enter Subject"
+                required
+            >
+
+
+            <!-- MESSAGE -->
+
+            <label for="message">
+                Your Message
+            </label>
+
+            <textarea
+                id="message"
+                name="message"
+                placeholder="Write Your Message"
+                minlength="5"
+                required
+            ></textarea>
+
+
+            <!-- SUBMIT -->
+
+            <input
+                type="submit"
+                value="Send Message"
+                class="send_btn"
+            >
+
+        </form>
+
+    </div>
+
+
+    <!-- ================= CONTACT INFORMATION ================= -->
+
+    <div class="info">
+
+
+        <div class="info_icon">
+            📞
+        </div>
+
+
+        <h2>
+            Contact Information
+        </h2>
+
+
+        <p>
+
+            <b>
+                Company :
+            </b>
+
+            Quantum Minds
+
+        </p>
+
+
+        <p>
+
+            <b>
+                Address :
+            </b>
+
+            Solapur, Maharashtra, India
+
+        </p>
+
+
+        <p>
+
+            <b>
+                Email :
+            </b>
+
+            support@interviewmirror.com
+
+        </p>
+
+
+        <p>
+
+            <b>
+                Phone :
+            </b>
+
+            +91 8329149901
+
+        </p>
+
+
+        <p>
+
+            <b>
+                Working Hours :
+            </b>
+
+            Monday - Saturday
+            (9:00 AM - 6:00 PM)
+
+        </p>
+
+
+    </div>
+
+
+</div>
+
+{% endblock %}

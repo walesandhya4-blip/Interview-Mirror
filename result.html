@@ -1,0 +1,1449 @@
+{% extends "base.html" %}
+
+{% block title %}
+Interview Mirror - Interview Result
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* =====================================================
+                    RESULT PAGE
+===================================================== */
+
+.result-page{
+
+    width:92%;
+
+    max-width:1200px;
+
+    margin:40px auto 70px;
+
+}
+
+
+/* =====================================================
+                    PAGE HEADING
+===================================================== */
+
+.page-heading{
+
+    text-align:center;
+
+    margin-bottom:35px;
+
+}
+
+
+.page-heading h1{
+
+    font-size:38px;
+
+    margin-bottom:10px;
+
+    background:
+    linear-gradient(
+        90deg,
+        #ffffff,
+        #0797ff
+    );
+
+    -webkit-background-clip:text;
+
+    -webkit-text-fill-color:transparent;
+
+}
+
+
+.page-heading p{
+
+    color:#bdd0ec;
+
+    font-size:16px;
+
+}
+
+
+/* =====================================================
+                    SUMMARY CARD
+===================================================== */
+
+.summary-card{
+
+    display:grid;
+
+    grid-template-columns:280px 1fr;
+
+    gap:30px;
+
+    padding:32px;
+
+    border-radius:22px;
+
+    background:
+    linear-gradient(
+        145deg,
+        rgba(7,27,66,0.95),
+        rgba(4,16,42,0.95)
+    );
+
+    border:1px solid #1459a5;
+
+    box-shadow:
+    0 10px 35px rgba(0,0,0,0.45);
+
+    margin-bottom:30px;
+
+}
+
+
+/* =====================================================
+                    SCORE SECTION
+===================================================== */
+
+.score-section{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    flex-direction:column;
+
+}
+
+
+.score-circle{
+
+    width:190px;
+
+    height:190px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    flex-direction:column;
+
+    background:
+    conic-gradient(
+        #0797ff 0deg,
+        #006eff 280deg,
+        rgba(255,255,255,0.08) 280deg
+    );
+
+    position:relative;
+
+    box-shadow:
+    0 0 35px rgba(0,140,255,0.35);
+
+}
+
+
+.score-circle::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:150px;
+
+    height:150px;
+
+    border-radius:50%;
+
+    background:#03102b;
+
+}
+
+
+.score-value{
+
+    position:relative;
+
+    z-index:2;
+
+    font-size:45px;
+
+    font-weight:bold;
+
+}
+
+
+.score-label{
+
+    position:relative;
+
+    z-index:2;
+
+    margin-top:4px;
+
+    color:#bdd0ec;
+
+    font-size:14px;
+
+}
+
+
+.score-title{
+
+    margin-top:18px;
+
+    font-size:18px;
+
+    font-weight:bold;
+
+    color:#4db7ff;
+
+}
+
+
+/* =====================================================
+                    DETAILS
+===================================================== */
+
+.details{
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+}
+
+
+.details h2{
+
+    font-size:25px;
+
+    margin-bottom:20px;
+
+}
+
+
+.detail-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(2,1fr);
+
+    gap:15px;
+
+}
+
+
+.detail-box{
+
+    padding:17px;
+
+    border-radius:13px;
+
+    background:
+    rgba(255,255,255,0.04);
+
+    border:1px solid #1459a5;
+
+    transition:0.3s;
+
+}
+
+
+.detail-box:hover{
+
+    border-color:#08a0ff;
+
+    box-shadow:
+    0 0 18px rgba(0,130,255,0.25);
+
+}
+
+
+.detail-box span{
+
+    display:block;
+
+    color:#6ea4d8;
+
+    font-size:13px;
+
+    margin-bottom:7px;
+
+}
+
+
+.detail-box strong{
+
+    font-size:16px;
+
+    color:white;
+
+}
+
+
+/* =====================================================
+                    SECTION TITLE
+===================================================== */
+
+.section-title{
+
+    font-size:25px;
+
+    margin:35px 0 20px;
+
+    color:white;
+
+}
+
+
+/* =====================================================
+                    PERFORMANCE
+===================================================== */
+
+.performance-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(3,1fr);
+
+    gap:20px;
+
+}
+
+
+.performance-card{
+
+    padding:24px;
+
+    border-radius:18px;
+
+    background:
+    linear-gradient(
+        145deg,
+        #071b42,
+        #04102a
+    );
+
+    border:1px solid #1459a5;
+
+    transition:0.3s;
+
+}
+
+
+.performance-card:hover{
+
+    transform:translateY(-5px);
+
+    border-color:#08a0ff;
+
+    box-shadow:
+    0 0 25px rgba(0,130,255,0.35);
+
+}
+
+
+.performance-top{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    margin-bottom:15px;
+
+}
+
+
+.performance-name{
+
+    font-size:16px;
+
+    font-weight:bold;
+
+}
+
+
+.performance-percent{
+
+    font-size:18px;
+
+    font-weight:bold;
+
+    color:#0797ff;
+
+}
+
+
+.progress{
+
+    width:100%;
+
+    height:9px;
+
+    background:
+    rgba(255,255,255,0.10);
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+}
+
+
+.progress-bar{
+
+    height:100%;
+
+    border-radius:20px;
+
+    background:
+    linear-gradient(
+        90deg,
+        #006eff,
+        #00aaff
+    );
+
+    width:var(--progress);
+
+}
+
+
+/* =====================================================
+                    FEEDBACK
+===================================================== */
+
+.feedback-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(2,1fr);
+
+    gap:25px;
+
+}
+
+
+.feedback-card{
+
+    padding:27px;
+
+    border-radius:18px;
+
+    background:
+    linear-gradient(
+        145deg,
+        #071b42,
+        #04102a
+    );
+
+    border:1px solid #1459a5;
+
+    box-shadow:
+    0 5px 20px rgba(0,0,0,0.35);
+
+}
+
+
+.feedback-card:hover{
+
+    border-color:#08a0ff;
+
+}
+
+
+.feedback-card h3{
+
+    font-size:20px;
+
+    margin-bottom:18px;
+
+}
+
+
+.feedback-card ul{
+
+    list-style:none;
+
+}
+
+
+.feedback-card li{
+
+    padding:11px 0;
+
+    color:#bdd0e9;
+
+    border-bottom:
+    1px solid rgba(255,255,255,0.06);
+
+    line-height:1.5;
+
+}
+
+
+.feedback-card li:last-child{
+
+    border-bottom:none;
+
+}
+
+
+.strength-icon{
+
+    color:#00e6a8;
+
+    font-weight:bold;
+
+    margin-right:8px;
+
+}
+
+
+.improve-icon{
+
+    color:#ffca3a;
+
+    font-weight:bold;
+
+    margin-right:8px;
+
+}
+
+
+/* =====================================================
+                    AI SUMMARY
+===================================================== */
+
+.ai-summary{
+
+    margin-top:25px;
+
+    padding:28px;
+
+    border-radius:20px;
+
+    background:
+    linear-gradient(
+        135deg,
+        rgba(0,110,255,0.18),
+        rgba(0,50,130,0.20)
+    );
+
+    border:1px solid #1459a5;
+
+    box-shadow:
+    0 5px 25px rgba(0,80,180,0.20);
+
+}
+
+
+.ai-heading{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    margin-bottom:15px;
+
+}
+
+
+.ai-icon{
+
+    width:42px;
+
+    height:42px;
+
+    border-radius:12px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:
+    linear-gradient(
+        135deg,
+        #006eff,
+        #00aaff
+    );
+
+    font-size:21px;
+
+    box-shadow:
+    0 0 15px rgba(0,140,255,0.35);
+
+}
+
+
+.ai-heading h3{
+
+    font-size:21px;
+
+}
+
+
+.ai-summary p{
+
+    color:#bdd0e9;
+
+    line-height:1.7;
+
+    font-size:15px;
+
+}
+
+
+/* =====================================================
+                    BUTTONS
+===================================================== */
+
+.action-buttons{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:18px;
+
+    margin-top:40px;
+
+}
+
+
+.btn{
+
+    border:none;
+
+    text-decoration:none;
+
+    padding:14px 28px;
+
+    border-radius:8px;
+
+    font-size:15px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:0.3s;
+
+}
+
+
+.btn-primary{
+
+    color:white;
+
+    background:
+    linear-gradient(
+        90deg,
+        #006eff,
+        #00aaff
+    );
+
+    box-shadow:
+    0 0 20px rgba(0,140,255,0.35);
+
+}
+
+
+.btn-primary:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:
+    0 0 15px #00aaff,
+    0 0 30px #006eff;
+
+}
+
+
+.btn-secondary{
+
+    color:#dce8f7;
+
+    background:
+    rgba(255,255,255,0.07);
+
+    border:1px solid #1459a5;
+
+}
+
+
+.btn-secondary:hover{
+
+    background:#087cff;
+
+    border-color:#087cff;
+
+    transform:translateY(-3px);
+
+}
+
+
+/* =====================================================
+                    RESPONSIVE
+===================================================== */
+
+@media(max-width:900px){
+
+    .summary-card{
+
+        grid-template-columns:1fr;
+
+        text-align:center;
+
+    }
+
+
+    .detail-grid{
+
+        text-align:left;
+
+    }
+
+
+    .performance-grid{
+
+        grid-template-columns:
+        repeat(2,1fr);
+
+    }
+
+}
+
+
+@media(max-width:650px){
+
+    .result-page{
+
+        width:94%;
+
+        margin-top:25px;
+
+    }
+
+
+    .page-heading h1{
+
+        font-size:30px;
+
+    }
+
+
+    .performance-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+
+    .feedback-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+
+    .detail-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+
+    .action-buttons{
+
+        flex-direction:column;
+
+    }
+
+
+    .btn{
+
+        width:100%;
+
+        text-align:center;
+
+    }
+
+}
+
+</style>
+
+
+<!-- =====================================================
+                    MAIN RESULT PAGE
+===================================================== -->
+
+<main class="result-page">
+
+
+    <!-- PAGE HEADING -->
+
+    <div class="page-heading">
+
+        <h1>
+            Interview Result
+        </h1>
+
+        <p>
+            Here's your AI-powered interview performance summary
+        </p>
+
+    </div>
+
+
+    <!-- =================================================
+                    SUMMARY CARD
+    ================================================== -->
+
+    <div class="summary-card">
+
+
+        <!-- SCORE -->
+
+        <div class="score-section">
+
+            <div class="score-circle">
+
+                <div class="score-value">
+
+                    {{ result_data.get('overall_score', 78) }}%
+
+                </div>
+
+                <div class="score-label">
+
+                    Overall Score
+
+                </div>
+
+            </div>
+
+
+            <div class="score-title">
+
+                {% if result_data.get('overall_score', 78) >= 80 %}
+
+                    Excellent Performance
+
+                {% elif result_data.get('overall_score', 78) >= 60 %}
+
+                    Good Performance
+
+                {% else %}
+
+                    Keep Practicing
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+
+        <!-- DETAILS -->
+
+        <div class="details">
+
+            <h2>
+                Interview Overview
+            </h2>
+
+
+            <div class="detail-grid">
+
+
+                <div class="detail-box">
+
+                    <span>
+                        Candidate
+                    </span>
+
+                    <strong>
+
+                        {{ session.get('user_name', 'Candidate') }}
+
+                    </strong>
+
+                </div>
+
+
+                <div class="detail-box">
+
+                    <span>
+                        Department
+                    </span>
+
+                    <strong>
+
+                        {{ result_data.get(
+                            'department',
+                            'Not Available'
+                        ) }}
+
+                    </strong>
+
+                </div>
+
+
+                <div class="detail-box">
+
+                    <span>
+                        Domain
+                    </span>
+
+                    <strong>
+
+                        {{ result_data.get(
+                            'domain',
+                            'Not Available'
+                        ) }}
+
+                    </strong>
+
+                </div>
+
+
+                <div class="detail-box">
+
+                    <span>
+                        Category
+                    </span>
+
+                    <strong>
+
+                        {{ result_data.get(
+                            'category',
+                            'Not Available'
+                        ) }}
+
+                    </strong>
+
+                </div>
+
+
+                <div class="detail-box">
+
+                    <span>
+                        Difficulty
+                    </span>
+
+                    <strong>
+
+                        {{ result_data.get(
+                            'difficulty',
+                            'Not Available'
+                        ) }}
+
+                    </strong>
+
+                </div>
+
+
+                <div class="detail-box">
+
+                    <span>
+                        Duration
+                    </span>
+
+                    <strong>
+
+                        {{ result_data.get(
+                            'duration',
+                            '15 Minutes'
+                        ) }}
+
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+                    PERFORMANCE
+    ================================================== -->
+
+    <h2 class="section-title">
+
+        Performance Analysis
+
+    </h2>
+
+
+    <div class="performance-grid">
+
+
+        <!-- COMMUNICATION -->
+
+        <div class="performance-card">
+
+            <div class="performance-top">
+
+                <span class="performance-name">
+                    🗣 Communication
+                </span>
+
+                <span class="performance-percent">
+
+                    {{ result_data.get(
+                        'communication',
+                        82
+                    ) }}%
+
+                </span>
+
+            </div>
+
+
+            <div class="progress">
+
+                <div
+                    class="progress-bar"
+                    style="--progress: {{ result_data.get(
+                        'communication',
+                        82
+                    ) }}%;">
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ANSWER QUALITY -->
+
+        <div class="performance-card">
+
+            <div class="performance-top">
+
+                <span class="performance-name">
+                    💡 Answer Quality
+                </span>
+
+                <span class="performance-percent">
+
+                    {{ result_data.get(
+                        'answer_quality',
+                        75
+                    ) }}%
+
+                </span>
+
+            </div>
+
+
+            <div class="progress">
+
+                <div
+                    class="progress-bar"
+                    style="--progress: {{ result_data.get(
+                        'answer_quality',
+                        75
+                    ) }}%;">
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- CONFIDENCE -->
+
+        <div class="performance-card">
+
+            <div class="performance-top">
+
+                <span class="performance-name">
+                    😊 Confidence
+                </span>
+
+                <span class="performance-percent">
+
+                    {{ result_data.get(
+                        'confidence',
+                        80
+                    ) }}%
+
+                </span>
+
+            </div>
+
+
+            <div class="progress">
+
+                <div
+                    class="progress-bar"
+                    style="--progress: {{ result_data.get(
+                        'confidence',
+                        80
+                    ) }}%;">
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- EYE CONTACT -->
+
+        <div class="performance-card">
+
+            <div class="performance-top">
+
+                <span class="performance-name">
+                    👁 Eye Contact
+                </span>
+
+                <span class="performance-percent">
+
+                    {{ result_data.get(
+                        'eye_contact',
+                        76
+                    ) }}%
+
+                </span>
+
+            </div>
+
+
+            <div class="progress">
+
+                <div
+                    class="progress-bar"
+                    style="--progress: {{ result_data.get(
+                        'eye_contact',
+                        76
+                    ) }}%;">
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- FLUENCY -->
+
+        <div class="performance-card">
+
+            <div class="performance-top">
+
+                <span class="performance-name">
+                    🎙 Fluency
+                </span>
+
+                <span class="performance-percent">
+
+                    {{ result_data.get(
+                        'fluency',
+                        79
+                    ) }}%
+
+                </span>
+
+            </div>
+
+
+            <div class="progress">
+
+                <div
+                    class="progress-bar"
+                    style="--progress: {{ result_data.get(
+                        'fluency',
+                        79
+                    ) }}%;">
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- RELEVANCE -->
+
+        <div class="performance-card">
+
+            <div class="performance-top">
+
+                <span class="performance-name">
+                    🎯 Relevance
+                </span>
+
+                <span class="performance-percent">
+
+                    {{ result_data.get(
+                        'relevance',
+                        84
+                    ) }}%
+
+                </span>
+
+            </div>
+
+
+            <div class="progress">
+
+                <div
+                    class="progress-bar"
+                    style="--progress: {{ result_data.get(
+                        'relevance',
+                        84
+                    ) }}%;">
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+                    FEEDBACK
+    ================================================== -->
+
+    <h2 class="section-title">
+
+        Feedback
+
+    </h2>
+
+
+    <div class="feedback-grid">
+
+
+        <!-- STRENGTHS -->
+
+        <div class="feedback-card">
+
+            <h3>
+                🌟 Your Strengths
+            </h3>
+
+
+            <ul>
+
+                <li>
+
+                    <span class="strength-icon">
+                        ✓
+                    </span>
+
+                    {{ result_data.get(
+                        'strength_1',
+                        'Good communication and clear expression of ideas.'
+                    ) }}
+
+                </li>
+
+
+                <li>
+
+                    <span class="strength-icon">
+                        ✓
+                    </span>
+
+                    {{ result_data.get(
+                        'strength_2',
+                        'Your answers were relevant to the questions.'
+                    ) }}
+
+                </li>
+
+
+                <li>
+
+                    <span class="strength-icon">
+                        ✓
+                    </span>
+
+                    {{ result_data.get(
+                        'strength_3',
+                        'You showed good confidence during the interview.'
+                    ) }}
+
+                </li>
+
+
+                <li>
+
+                    <span class="strength-icon">
+                        ✓
+                    </span>
+
+                    {{ result_data.get(
+                        'strength_4',
+                        'You demonstrated a positive interview attitude.'
+                    ) }}
+
+                </li>
+
+            </ul>
+
+        </div>
+
+
+        <!-- IMPROVEMENT -->
+
+        <div class="feedback-card">
+
+            <h3>
+                🚀 Areas to Improve
+            </h3>
+
+
+            <ul>
+
+                <li>
+
+                    <span class="improve-icon">
+                        !
+                    </span>
+
+                    {{ result_data.get(
+                        'improve_1',
+                        'Try to give more structured answers.'
+                    ) }}
+
+                </li>
+
+
+                <li>
+
+                    <span class="improve-icon">
+                        !
+                    </span>
+
+                    {{ result_data.get(
+                        'improve_2',
+                        'Maintain consistent eye contact with the camera.'
+                    ) }}
+
+                </li>
+
+
+                <li>
+
+                    <span class="improve-icon">
+                        !
+                    </span>
+
+                    {{ result_data.get(
+                        'improve_3',
+                        'Avoid unnecessary pauses while answering.'
+                    ) }}
+
+                </li>
+
+
+                <li>
+
+                    <span class="improve-icon">
+                        !
+                    </span>
+
+                    {{ result_data.get(
+                        'improve_4',
+                        'Practice more questions related to your selected domain.'
+                    ) }}
+
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+                    AI SUMMARY
+    ================================================== -->
+
+    <div class="ai-summary">
+
+        <div class="ai-heading">
+
+            <div class="ai-icon">
+                🤖
+            </div>
+
+            <h3>
+                AI Interview Summary
+            </h3>
+
+        </div>
+
+
+        <p>
+
+            {{ result_data.get(
+                'summary',
+                'You performed well during the interview. Your communication was clear and your answers were generally relevant. Continue practicing domain-specific questions and focus on giving structured, confident answers. With regular practice, your interview performance can improve further.'
+            ) }}
+
+        </p>
+
+    </div>
+
+
+    <!-- =================================================
+                    ACTION BUTTONS
+    ================================================== -->
+
+    <div class="action-buttons">
+
+
+        <a
+            href="{{ url_for('interviewsetup') }}"
+            class="btn btn-primary">
+
+            🔄 Try Again
+
+        </a>
+
+
+        <a
+            href="{{ url_for('index') }}"
+            class="btn btn-secondary">
+
+            🏠 Back to Home
+
+        </a>
+
+
+    </div>
+
+
+</main>
+
+{% endblock %}

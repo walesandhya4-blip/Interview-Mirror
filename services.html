@@ -1,0 +1,802 @@
+{% extends "base.html" %}
+
+{% block title %}
+Interview Mirror - Services
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* ================= SERVICES PAGE BACKGROUND ================= */
+
+body{
+    background:
+    radial-gradient(
+        circle at 80% 20%,
+        #063b80 0%,
+        transparent 30%
+    ),
+    linear-gradient(
+        135deg,
+        #020817,
+        #031a43,
+        #020b24
+    );
+
+    color:white;
+
+    min-height:100vh;
+}
+
+
+/* ================= TITLE ================= */
+
+.title{
+
+    text-align:center;
+
+    padding:
+    60px 20px 40px;
+
+    background:
+    radial-gradient(
+        circle at center,
+        #063b80,
+        #020b24 65%
+    );
+}
+
+
+.title h1{
+
+    font-size:44px;
+
+    margin-bottom:15px;
+
+    color:white;
+}
+
+
+.title h1 span{
+
+    color:#0797ff;
+}
+
+
+.title p{
+
+    color:#b9d4f5;
+
+    font-size:18px;
+
+    line-height:1.6;
+}
+
+
+/* ================= SERVICES ================= */
+
+.service{
+
+    text-align:center;
+
+    padding:
+    25px 7% 60px;
+}
+
+
+/* ================= SERVICE BOXES ================= */
+
+.box{
+
+    display:inline-block;
+
+    vertical-align:top;
+
+    width:280px;
+
+    min-height:190px;
+
+    margin:12px;
+
+    padding:
+    30px 22px;
+
+    background:
+    linear-gradient(
+        145deg,
+        #071b42,
+        #04102a
+    );
+
+    border:
+    1px solid #1459a5;
+
+    border-radius:14px;
+
+    transition:0.4s;
+
+    box-shadow:
+    0 5px 20px
+    rgba(0,0,0,0.35);
+}
+
+
+.box:hover{
+
+    transform:
+    translateY(-8px);
+
+    border-color:#079cff;
+
+    box-shadow:
+    0 0 25px
+    rgba(0,140,255,0.5);
+}
+
+
+/* ================= SERVICE ICON ================= */
+
+.service_icon{
+
+    font-size:40px;
+
+    margin-bottom:15px;
+}
+
+
+/* ================= SERVICE HEADING ================= */
+
+.box h3{
+
+    color:#4db7ff;
+
+    margin-bottom:15px;
+
+    font-size:21px;
+}
+
+
+/* ================= SERVICE TEXT ================= */
+
+.box p{
+
+    color:#c1d3eb;
+
+    line-height:1.7;
+
+    font-size:15px;
+}
+
+
+/* ================= ONLINE INTERVIEW ================= */
+
+.interview_section{
+
+    text-align:center;
+
+    padding:
+    65px 5% 45px;
+
+    background:
+    linear-gradient(
+        180deg,
+        #020b24,
+        #031331
+    );
+}
+
+
+.interview_section h1{
+
+    color:white;
+
+    font-size:34px;
+
+    margin-bottom:35px;
+}
+
+
+.interview_section h1 span{
+
+    color:#0797ff;
+}
+
+
+/* ================= INTERVIEW IMAGES ================= */
+
+.image_box{
+
+    display:inline-block;
+
+    vertical-align:top;
+
+    margin:12px;
+
+    padding:10px;
+
+    background:#071b42;
+
+    border:
+    1px solid #1769d1;
+
+    border-radius:15px;
+
+    transition:0.4s;
+
+    box-shadow:
+    0 5px 20px
+    rgba(0,80,180,0.25);
+}
+
+
+.image_box img{
+
+    width:380px;
+
+    height:280px;
+
+    object-fit:cover;
+
+    border-radius:10px;
+
+    display:block;
+}
+
+
+.image_box:hover{
+
+    transform:
+    translateY(-8px);
+
+    border-color:#08a0ff;
+
+    box-shadow:
+    0 0 25px
+    rgba(0,140,255,0.5);
+}
+
+
+/* ================= TIPS ================= */
+
+.tips_section{
+
+    text-align:center;
+
+    padding:
+    60px 5%;
+
+    background:
+    radial-gradient(
+        circle at center,
+        #063b80,
+        #02091c 70%
+    );
+}
+
+
+.tips_section h1{
+
+    color:white;
+
+    font-size:34px;
+
+    margin-bottom:35px;
+}
+
+
+.tips_section h1 span{
+
+    color:#0797ff;
+}
+
+
+/* ================= TIPS IMAGES ================= */
+
+.tip_image{
+
+    display:inline-block;
+
+    vertical-align:top;
+
+    margin:12px;
+
+    padding:10px;
+
+    background:#071b42;
+
+    border:
+    1px solid #1769d1;
+
+    border-radius:15px;
+
+    transition:0.4s;
+
+    box-shadow:
+    0 5px 20px
+    rgba(0,80,180,0.25);
+}
+
+
+.tip_image img{
+
+    width:550px;
+
+    height:280px;
+
+    object-fit:cover;
+
+    border-radius:10px;
+
+    display:block;
+}
+
+
+.tip_image:hover{
+
+    transform:
+    translateY(-8px);
+
+    border-color:#08a0ff;
+
+    box-shadow:
+    0 0 25px
+    rgba(0,140,255,0.5);
+}
+
+
+/* ================= CTA ================= */
+
+.start_section{
+
+    text-align:center;
+
+    padding:
+    60px 20px;
+
+    background:
+    linear-gradient(
+        135deg,
+        #031a43,
+        #020817
+    );
+}
+
+
+.start_section h2{
+
+    font-size:31px;
+
+    margin-bottom:12px;
+}
+
+
+.start_section p{
+
+    color:#b9d4f5;
+
+    margin-bottom:25px;
+}
+
+
+/* ================= BUTTON ================= */
+
+.button{
+
+    padding:
+    14px 32px;
+
+    border:none;
+
+    border-radius:7px;
+
+    background:
+    linear-gradient(
+        90deg,
+        #006eff,
+        #00aaff
+    );
+
+    color:white;
+
+    font-size:17px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    box-shadow:
+    0 0 20px
+    rgba(0,140,255,0.5);
+
+    transition:0.3s;
+}
+
+
+.button:hover{
+
+    transform:
+    translateY(-3px);
+
+    box-shadow:
+    0 0 15px #00aaff,
+    0 0 30px #006eff;
+}
+
+
+/* ================= FOOTER ================= */
+
+.footer{
+
+    padding:
+    23px 50px;
+
+    background:#010617;
+
+    border-top:
+    1px solid #0d4380;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    text-align:center;
+}
+
+
+.footer p{
+
+    color:#6ea4d8;
+
+    font-size:14px;
+
+    letter-spacing:0.5px;
+}
+
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:900px){
+
+    .title h1{
+
+        font-size:36px;
+    }
+
+
+    .box{
+
+        width:80%;
+
+        max-width:350px;
+    }
+
+
+    .image_box{
+
+        width:90%;
+
+        max-width:450px;
+    }
+
+
+    .image_box img{
+
+        width:100%;
+
+        height:auto;
+    }
+
+
+    .tip_image{
+
+        width:90%;
+
+        max-width:600px;
+    }
+
+
+    .tip_image img{
+
+        width:100%;
+
+        height:auto;
+    }
+
+}
+
+
+@media(max-width:600px){
+
+    .title{
+
+        padding:
+        45px 15px 30px;
+    }
+
+
+    .title h1{
+
+        font-size:31px;
+    }
+
+
+    .title p{
+
+        font-size:15px;
+    }
+
+
+    .box{
+
+        width:90%;
+    }
+
+}
+
+
+/* ================= ANIMATION ================= */
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+
+        transform:
+        translateY(25px);
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:
+        translateY(0);
+    }
+
+}
+
+
+.title,
+.service,
+.interview_section,
+.tips_section{
+
+    animation:
+    fadeUp 0.9s ease;
+}
+
+</style>
+
+
+<!-- ================= TITLE ================= -->
+
+<div class="title">
+
+    <h1>
+
+        Our
+        <span>
+            Services
+        </span>
+
+    </h1>
+
+
+    <p>
+
+        Helping You Prepare for Successful Interviews
+
+    </p>
+
+</div>
+
+
+
+<!-- ================= SERVICES ================= -->
+
+<div class="service">
+
+
+    <!-- ================= SERVICE 1 ================= -->
+
+    <div class="box">
+
+        <div class="service_icon">
+            🎤
+        </div>
+
+
+        <h3>
+            Mock Interview
+        </h3>
+
+
+        <p>
+
+            Practice HR and Technical interview questions
+            to improve your interview performance.
+
+        </p>
+
+    </div>
+
+
+
+    <!-- ================= SERVICE 2 ================= -->
+
+    <div class="box">
+
+        <div class="service_icon">
+            📊
+        </div>
+
+
+        <h3>
+            Confidence Analysis
+        </h3>
+
+
+        <p>
+
+            Improve your confidence, eye contact, and
+            communication during interviews.
+
+        </p>
+
+    </div>
+
+
+
+    <!-- ================= SERVICE 3 ================= -->
+
+    <div class="box">
+
+        <div class="service_icon">
+            📋
+        </div>
+
+
+        <h3>
+            Performance Report
+        </h3>
+
+
+        <p>
+
+            Get feedback about your strengths, weaknesses,
+            and overall performance.
+
+        </p>
+
+    </div>
+
+
+
+    <!-- ================= SERVICE 4 ================= -->
+
+    <div class="box">
+
+        <div class="service_icon">
+            💬
+        </div>
+
+
+        <h3>
+            Communication Skills
+        </h3>
+
+
+        <p>
+
+            Practically improve your speaking skills,
+            pronunciation, and fluency.
+
+        </p>
+
+    </div>
+
+
+
+    <!-- ================= SERVICE 5 ================= -->
+
+    <div class="box">
+
+        <div class="service_icon">
+            📈
+        </div>
+
+
+        <h3>
+            Progress Tracking
+        </h3>
+
+
+        <p>
+
+            Compare previous and current interview
+            results and monitor your improvement.
+
+        </p>
+
+    </div>
+
+
+
+    <!-- ================= SERVICE 6 ================= -->
+
+    <div class="box">
+
+        <div class="service_icon">
+            🎯
+        </div>
+
+
+        <h3>
+            Placement Preparation
+        </h3>
+
+
+        <p>
+
+            Prepare for campus placements with interview
+            practice and guidance.
+
+        </p>
+
+    </div>
+
+
+</div>
+
+
+
+<!-- ================= CTA ================= -->
+
+<div class="start_section">
+
+    <h2>
+
+        Ready to Start Your Interview Practice?
+
+    </h2>
+
+
+    <p>
+
+        Practice regularly and improve your interview confidence.
+
+    </p>
+
+
+    <button
+        class="button"
+        onclick="window.location.href='/interviewsetup'"
+    >
+
+        Get Started
+
+    </button>
+
+</div>
+
+
+
+<!-- ================= FOOTER ================= -->
+
+<div class="footer">
+
+    <p>
+
+        <b>
+            @Powered by Quantum Minds
+        </b>
+
+    </p>
+
+</div>
+
+{% endblock %}

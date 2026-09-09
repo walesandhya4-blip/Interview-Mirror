@@ -1,0 +1,709 @@
+{% extends "base.html" %}
+
+{% block title %}
+Quetion Report - Interview Mirror
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* =========================================================
+   QUESTION REPORT PAGE
+========================================================= */
+
+.report-page{
+
+    width:92%;
+    max-width:1100px;
+
+    margin:40px auto;
+
+    color:white;
+}
+
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.report-header{
+
+    text-align:center;
+
+    margin-bottom:30px;
+}
+
+.report-header h1{
+
+    margin:0;
+
+    font-family:Cambria,serif;
+
+    font-size:38px;
+
+    color:white;
+}
+
+.report-header h1 span{
+
+    color:#159cff;
+
+    text-shadow:
+        0 0 10px #0879e8,
+        0 0 25px #0879e8;
+}
+
+.report-header p{
+
+    margin-top:10px;
+
+    color:#c8d9f5;
+
+    font-size:16px;
+}
+
+
+/* =========================================================
+   SETUP INFORMATION
+========================================================= */
+
+.setup-card{
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(7,30,75,0.95),
+            rgba(2,13,36,0.98)
+        );
+
+    border:1px solid #126fe0;
+
+    border-radius:15px;
+
+    padding:20px;
+
+    margin-bottom:30px;
+
+    box-shadow:
+        0 0 20px rgba(0,110,255,0.20);
+}
+
+.setup-card h2{
+
+    color:#43baff;
+
+    margin-top:0;
+
+    margin-bottom:18px;
+
+    text-align:center;
+}
+
+.setup-details{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:15px;
+
+    flex-wrap:wrap;
+}
+
+.setup-item{
+
+    padding:10px 18px;
+
+    background:#061733;
+
+    border:1px solid #1459a5;
+
+    border-radius:20px;
+
+    color:#c9ddf5;
+
+    font-size:14px;
+}
+
+.setup-item strong{
+
+    color:#43baff;
+}
+
+
+/* =========================================================
+   REPORT TABLE
+========================================================= */
+
+.table-container{
+
+    overflow-x:auto;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(7,30,75,0.95),
+            rgba(2,13,36,0.98)
+        );
+
+    border:1px solid #126fe0;
+
+    border-radius:15px;
+
+    padding:15px;
+
+    box-shadow:
+        0 0 20px rgba(0,110,255,0.20);
+}
+
+table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+    min-width:750px;
+}
+
+thead{
+
+    background:
+        linear-gradient(
+            90deg,
+            #064aa3,
+            #087cff
+        );
+}
+
+th{
+
+    padding:15px;
+
+    text-align:center;
+
+    color:white;
+
+    font-size:14px;
+
+    border:1px solid #1769d1;
+}
+
+td{
+
+    padding:14px;
+
+    text-align:center;
+
+    color:#dcecff;
+
+    border:1px solid #174f88;
+
+    font-size:14px;
+}
+
+tbody tr{
+
+    background:
+        rgba(3,16,43,0.90);
+
+    transition:0.3s;
+}
+
+tbody tr:nth-child(even){
+
+    background:
+        rgba(7,30,70,0.75);
+}
+
+tbody tr:hover{
+
+    background:
+        rgba(10,65,130,0.65);
+}
+
+
+/* =========================================================
+   QUESTION TEXT
+========================================================= */
+
+.question-text{
+
+    text-align:left;
+
+    line-height:1.5;
+
+    min-width:300px;
+}
+
+
+/* =========================================================
+   QUESTION NUMBER
+========================================================= */
+
+.question-number{
+
+    color:#43baff;
+
+    font-weight:bold;
+}
+
+
+/* =========================================================
+   ANSWER STATUS
+========================================================= */
+
+.status{
+
+    display:inline-block;
+
+    padding:7px 12px;
+
+    border-radius:20px;
+
+    font-size:12px;
+
+    font-weight:bold;
+}
+
+.answered{
+
+    background:#073f2a;
+
+    color:#35e59a;
+
+    border:1px solid #168f62;
+}
+
+.not-answered{
+
+    background:#421515;
+
+    color:#ff7777;
+
+    border:1px solid #a83232;
+}
+
+
+/* =========================================================
+   ANSWER
+========================================================= */
+
+.answer-text{
+
+    text-align:left;
+
+    color:#c9ddf5;
+
+    line-height:1.5;
+}
+
+
+/* =========================================================
+   NO DATA
+========================================================= */
+
+.no-data{
+
+    text-align:center;
+
+    padding:45px 20px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(7,30,75,0.95),
+            rgba(2,13,36,0.98)
+        );
+
+    border:1px solid #126fe0;
+
+    border-radius:15px;
+
+    box-shadow:
+        0 0 20px rgba(0,110,255,0.20);
+}
+
+.no-data h2{
+
+    color:#43baff;
+
+    margin-bottom:10px;
+}
+
+.no-data p{
+
+    color:#c8d9f5;
+}
+
+
+/* =========================================================
+   BUTTON AREA
+========================================================= */
+
+.button-area{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:15px;
+
+    flex-wrap:wrap;
+
+    margin-top:30px;
+}
+
+.action-btn{
+
+    display:inline-block;
+
+    padding:13px 25px;
+
+    border-radius:8px;
+
+    text-decoration:none;
+
+    color:white;
+
+    font-weight:bold;
+
+    border:1px solid #3fc8ff;
+
+    transition:0.3s;
+}
+
+.back-btn{
+
+    background:
+        linear-gradient(
+            90deg,
+            #005be8,
+            #009eff
+        );
+}
+
+.back-btn:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 0 18px rgba(0,170,255,0.7);
+}
+
+.interview-btn{
+
+    background:
+        linear-gradient(
+            90deg,
+            #087cff,
+            #12c2ff
+        );
+}
+
+.interview-btn:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 0 18px rgba(0,170,255,0.7);
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:600px){
+
+    .report-page{
+
+        width:95%;
+
+        margin:25px auto;
+    }
+
+    .report-header h1{
+
+        font-size:30px;
+    }
+
+    .setup-item{
+
+        width:100%;
+
+        text-align:center;
+    }
+
+    .action-btn{
+
+        width:100%;
+
+        text-align:center;
+    }
+
+}
+
+</style>
+
+
+<div class="report-page">
+
+
+    <!-- =====================================================
+         PAGE HEADER
+    ====================================================== -->
+
+    <div class="report-header">
+
+        <h1>
+            Question <span>Report</span>
+        </h1>
+
+        <p>
+            Review the questions selected for your interview.
+        </p>
+
+    </div>
+
+
+    <!-- =====================================================
+         SETUP INFORMATION
+    ====================================================== -->
+
+    {% if department or domain or category or difficulty %}
+
+    <div class="setup-card">
+
+        <h2>
+            Interview Setup
+        </h2>
+
+        <div class="setup-details">
+
+
+            {% if department %}
+
+            <div class="setup-item">
+
+                Department:
+
+                <strong>
+                    {{ department }}
+                </strong>
+
+            </div>
+
+            {% endif %}
+
+
+            {% if domain %}
+
+            <div class="setup-item">
+
+                Domain:
+
+                <strong>
+                    {{ domain }}
+                </strong>
+
+            </div>
+
+            {% endif %}
+
+
+            {% if category %}
+
+            <div class="setup-item">
+
+                Category:
+
+                <strong>
+                    {{ category }}
+                </strong>
+
+            </div>
+
+            {% endif %}
+
+
+            {% if difficulty %}
+
+            <div class="setup-item">
+
+                Difficulty:
+
+                <strong>
+                    {{ difficulty }}
+                </strong>
+
+            </div>
+
+            {% endif %}
+
+
+        </div>
+
+    </div>
+
+    {% endif %}
+
+
+    <!-- =====================================================
+         QUESTIONS
+    ====================================================== -->
+
+    {% if questions %}
+
+    <div class="table-container">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        No.
+                    </th>
+
+                    <th>
+                        Question ID
+                    </th>
+
+                    <th>
+                        Question
+                    </th>
+
+                    <th>
+                        Status
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                {% for q in questions %}
+
+                <tr>
+
+
+                    <!-- QUESTION NUMBER -->
+
+                    <td>
+
+                        <span class="question-number">
+
+                            {{ loop.index }}
+
+                        </span>
+
+                    </td>
+
+
+                    <!-- QUESTION ID -->
+
+                    <td>
+
+                        {{ q[0] }}
+
+                    </td>
+
+
+                    <!-- QUESTION -->
+
+                    <td>
+
+                        <div class="question-text">
+
+                            {{ q[1] }}
+
+                        </div>
+
+                    </td>
+
+
+                    <!-- STATUS -->
+
+                    <td>
+
+                        <span class="status answered">
+
+                            Available
+
+                        </span>
+
+                    </td>
+
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+    {% else %}
+
+
+    <!-- =====================================================
+         NO QUESTIONS
+    ====================================================== -->
+
+    <div class="no-data">
+
+        <h2>
+            No Questions Available
+        </h2>
+
+        <p>
+            No questions were found for the selected
+            interview setup.
+        </p>
+
+    </div>
+
+    {% endif %}
+
+
+    <!-- =====================================================
+         BUTTONS
+    ====================================================== -->
+
+    <div class="button-area">
+
+
+        <a
+            href="/interviewsetup"
+            class="action-btn back-btn"
+        >
+
+            ← Back to Interview Setup
+
+        </a>
+
+
+        <a
+            href="/Interviewinstruction"
+            class="action-btn interview-btn"
+        >
+
+            Start Interview →
+
+        </a>
+
+
+    </div>
+
+
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,1076 @@
+{% extends "base.html" %}
+
+{% block title %}
+Interview Mirror - Completion Certificate
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* =====================================================
+   REPORT / CERTIFICATE PAGE
+===================================================== */
+
+.report-page{
+
+    width:90%;
+    max-width:1100px;
+
+    margin:35px auto 60px;
+
+    color:white;
+}
+
+
+/* =====================================================
+   TITLE
+===================================================== */
+
+.title{
+
+    text-align:center;
+
+    padding:40px 20px 30px;
+
+    margin-bottom:30px;
+
+    background:
+    radial-gradient(
+        circle at center,
+        #063b80,
+        #020b24 65%
+    );
+
+    border-radius:15px;
+
+    animation:fadeUp .8s ease;
+}
+
+.title h1{
+
+    font-size:40px;
+
+    margin-bottom:12px;
+}
+
+.title h1 span{
+
+    color:#0797ff;
+}
+
+.title p{
+
+    color:#b9d4f5;
+
+    font-size:17px;
+}
+
+
+/* =====================================================
+   REPORT CARD
+===================================================== */
+
+.report{
+
+    width:800px;
+
+    max-width:100%;
+
+    margin:0 auto 35px;
+
+    padding:35px;
+
+    background:
+    linear-gradient(
+        145deg,
+        #071b42,
+        #04102a
+    );
+
+    border:1px solid #1459a5;
+
+    border-radius:14px;
+
+    box-shadow:
+    0 5px 25px rgba(0,0,0,.4);
+
+    animation:fadeUp .8s ease;
+}
+
+.report h2{
+
+    text-align:center;
+
+    color:#4db7ff;
+
+    font-size:27px;
+
+    margin-bottom:25px;
+}
+
+
+/* =====================================================
+   TABLE
+===================================================== */
+
+table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+    margin-top:20px;
+
+    background:#020c22;
+}
+
+th{
+
+    background:
+    linear-gradient(
+        90deg,
+        #006eff,
+        #0757a8
+    );
+
+    color:white;
+
+    padding:14px;
+
+    border:1px solid #1a5c9e;
+}
+
+td{
+
+    padding:13px;
+
+    border:1px solid #173c66;
+
+    color:#c7d9ed;
+}
+
+td:first-child{
+
+    width:40%;
+
+    color:#66bdff;
+
+    font-weight:bold;
+}
+
+tr:hover td{
+
+    background:#061b3b;
+}
+
+
+/* =====================================================
+   SCORE
+===================================================== */
+
+.score{
+
+    color:#4db7ff;
+
+    font-size:20px;
+
+    font-weight:bold;
+}
+
+
+/* =====================================================
+   PASS / FAIL
+===================================================== */
+
+.result-pass{
+
+    color:#31e981;
+
+    font-weight:bold;
+
+    text-shadow:
+    0 0 8px rgba(49,233,129,.35);
+}
+
+.result-fail{
+
+    color:#ff6577;
+
+    font-weight:bold;
+}
+
+
+/* =====================================================
+   CERTIFICATE
+===================================================== */
+
+.certificate{
+
+    position:relative;
+
+    width:100%;
+
+    margin-top:40px;
+
+    padding:45px 35px;
+
+    text-align:center;
+
+    background:
+
+    radial-gradient(
+        circle at center,
+        #0a326b,
+        #020b24 70%
+    );
+
+    border:2px solid #168cff;
+
+    border-radius:15px;
+
+    box-shadow:
+    0 0 25px rgba(0,140,255,.25);
+
+    overflow:hidden;
+}
+
+
+/* certificate outer decoration */
+
+.certificate::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:12px;
+    left:12px;
+    right:12px;
+    bottom:12px;
+
+    border:1px solid #237fc7;
+
+    border-radius:10px;
+
+    pointer-events:none;
+}
+
+
+.certificate-small{
+
+    color:#9fc4e8;
+
+    font-size:15px;
+
+    letter-spacing:2px;
+
+    margin-bottom:15px;
+}
+
+
+.certificate h1{
+
+    color:#ffffff;
+
+    font-size:38px;
+
+    letter-spacing:2px;
+
+    margin-bottom:10px;
+}
+
+
+.certificate h1 span{
+
+    color:#0797ff;
+}
+
+
+.certificate-line{
+
+    width:150px;
+
+    height:3px;
+
+    margin:18px auto;
+
+    background:
+    linear-gradient(
+        90deg,
+        #006eff,
+        #00aaff
+    );
+
+    border-radius:10px;
+}
+
+
+.certificate-text{
+
+    color:#b9d4f5;
+
+    font-size:16px;
+
+    line-height:1.7;
+
+    margin:15px auto;
+
+    max-width:700px;
+}
+
+
+.candidate-name{
+
+    color:#ffffff;
+
+    font-size:30px;
+
+    font-weight:bold;
+
+    margin:20px 0 10px;
+}
+
+
+.certificate-score{
+
+    display:inline-block;
+
+    margin:15px 0;
+
+    padding:12px 28px;
+
+    border:1px solid #168cff;
+
+    border-radius:30px;
+
+    color:#4db7ff;
+
+    font-size:25px;
+
+    font-weight:bold;
+
+    background:rgba(0,120,255,.10);
+}
+
+
+.certificate-result{
+
+    font-size:18px;
+
+    font-weight:bold;
+
+    margin:10px 0;
+}
+
+
+.certificate-details{
+
+    margin-top:20px;
+
+    color:#9fc4e8;
+
+    font-size:14px;
+
+    line-height:1.8;
+}
+
+
+.certificate-footer{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:flex-end;
+
+    margin-top:35px;
+
+    padding:0 30px;
+
+    color:#9fc4e8;
+
+    font-size:13px;
+}
+
+
+.signature{
+
+    border-top:1px solid #3a78a8;
+
+    padding-top:8px;
+
+    min-width:160px;
+}
+
+
+/* =====================================================
+   BUTTONS
+===================================================== */
+
+.button{
+
+    text-align:center;
+
+    margin-top:30px;
+
+    padding-top:20px;
+
+    border-top:1px solid #174f88;
+}
+
+
+.btn{
+
+    display:inline-block;
+
+    background:
+    linear-gradient(
+        90deg,
+        #006eff,
+        #00aaff
+    );
+
+    color:white;
+
+    border:none;
+
+    padding:12px 24px;
+
+    margin:8px;
+
+    border-radius:7px;
+
+    cursor:pointer;
+
+    font-size:16px;
+
+    font-weight:bold;
+
+    transition:.3s;
+
+    box-shadow:
+    0 0 15px rgba(0,140,255,.3);
+
+    text-decoration:none;
+}
+
+
+.btn:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:
+    0 0 15px #00aaff,
+    0 0 30px #006eff;
+}
+
+
+.dashboard{
+
+    background:#071b42;
+
+    border:1px solid #1459a5;
+}
+
+
+/* =====================================================
+   NO DATA
+===================================================== */
+
+.no-data{
+
+    text-align:center;
+
+    padding:35px;
+
+    color:#b9d4f5;
+
+    font-size:17px;
+}
+
+
+/* =====================================================
+   ANIMATION
+===================================================== */
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(25px);
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+    }
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media(max-width:700px){
+
+    .report-page{
+
+        width:94%;
+    }
+
+    .report{
+
+        padding:22px;
+    }
+
+    .title h1{
+
+        font-size:32px;
+    }
+
+    .certificate{
+
+        padding:35px 20px;
+    }
+
+    .certificate h1{
+
+        font-size:28px;
+    }
+
+    .candidate-name{
+
+        font-size:24px;
+    }
+
+    .certificate-footer{
+
+        flex-direction:column;
+
+        align-items:center;
+
+        gap:25px;
+
+        padding:0;
+    }
+
+    .btn{
+
+        width:90%;
+
+        margin:7px auto;
+    }
+
+}
+
+</style>
+
+
+<div class="report-page">
+
+
+    <!-- =================================================
+         PAGE TITLE
+    ================================================= -->
+
+    <div class="title">
+
+        <h1>
+
+            Completion
+            <span>Certificate 🏆</span>
+
+        </h1>
+
+        <p>
+
+            Congratulations on completing your interview.
+
+        </p>
+
+    </div>
+
+
+    {% if report %}
+
+
+    <!-- =================================================
+         INTERVIEW DETAILS
+    ================================================= -->
+
+    <div class="report">
+
+        <h2>
+
+            Interview Completion Details
+
+        </h2>
+
+
+        <table>
+
+            <tr>
+
+                <td>
+                    Candidate Name
+                </td>
+
+                <td>
+                    {{ report.candidate_name or "Candidate" }}
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                    Interview Date
+                </td>
+
+                <td>
+                    {{ report.interview_date or "-" }}
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                    Department
+                </td>
+
+                <td>
+                    {{ report.department or "-" }}
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                    Domain
+                </td>
+
+                <td>
+                    {{ report.domain or "-" }}
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                    Category
+                </td>
+
+                <td>
+                    {{ report.category or "-" }}
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                    Difficulty
+                </td>
+
+                <td>
+                    {{ report.difficulty or "-" }}
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                    Total Questions
+                </td>
+
+                <td>
+                    {{ report.total_questions or 0 }}
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                    Correct Answers
+                </td>
+
+                <td>
+                    {{ report.correct_answers or 0 }}
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                    Wrong Answers
+                </td>
+
+                <td>
+                    {{ report.wrong_answers or 0 }}
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                    Overall Score
+                </td>
+
+                <td class="score">
+
+                    {{ report.accuracy or 0 }}%
+
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                    Result
+                </td>
+
+                <td>
+
+                    {% if report.accuracy|float >= 40 %}
+
+                        <span class="result-pass">
+                            PASS ✓
+                        </span>
+
+                    {% else %}
+
+                        <span class="result-fail">
+                            NEEDS IMPROVEMENT
+                        </span>
+
+                    {% endif %}
+
+                </td>
+
+            </tr>
+
+        </table>
+
+
+        <!-- =================================================
+             CERTIFICATE
+        ================================================= -->
+
+        <div class="certificate">
+
+
+            <div class="certificate-small">
+
+                INTERVIEW MIRROR
+
+            </div>
+
+
+            <h1>
+
+                COMPLETION
+                <span>CERTIFICATE</span>
+
+            </h1>
+
+
+            <div class="certificate-line"></div>
+
+
+            <div class="certificate-text">
+
+                This certificate is proudly presented to
+
+            </div>
+
+
+            <div class="candidate-name">
+
+                {{ report.candidate_name or "Candidate" }}
+
+            </div>
+
+
+            <div class="certificate-text">
+
+                for successfully completing the
+                Interview Mirror interview assessment
+                and demonstrating interview preparation
+                and performance.
+
+            </div>
+
+
+            <!-- SCORE -->
+
+            <div class="certificate-score">
+
+                Score: {{ report.accuracy or 0 }}%
+
+            </div>
+
+
+            <!-- RESULT -->
+
+            <div class="certificate-result">
+
+                {% if report.accuracy|float >= 80 %}
+
+                    🏆 Excellent Performance
+
+                {% elif report.accuracy|float >= 60 %}
+
+                    👍 Good Performance
+
+                {% elif report.accuracy|float >= 40 %}
+
+                    🙂 Average Performance
+
+                {% else %}
+
+                    💪 Keep Practicing
+
+                {% endif %}
+
+            </div>
+
+
+            <div class="certificate-details">
+
+                Department:
+                <b>{{ report.department or "-" }}</b>
+
+                &nbsp; | &nbsp;
+
+                Domain:
+                <b>{{ report.domain or "-" }}</b>
+
+                <br>
+
+                Category:
+                <b>{{ report.category or "-" }}</b>
+
+                &nbsp; | &nbsp;
+
+                Difficulty:
+                <b>{{ report.difficulty or "-" }}</b>
+
+                <br>
+
+                Interview Date:
+                <b>{{ report.interview_date or "-" }}</b>
+
+            </div>
+
+
+            <!-- CERTIFICATE FOOTER -->
+
+            <div class="certificate-footer">
+
+
+                <div class="signature">
+
+                    Interview Mirror
+
+                </div>
+
+
+                <div>
+
+                    Powered by Quantum Minds
+
+                </div>
+
+
+                <div class="signature">
+
+                    AI Interview System
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+        <!-- =================================================
+             BUTTONS
+        ================================================= -->
+
+        <div class="button">
+
+
+            <button
+                class="btn"
+                onclick="downloadCertificate()">
+
+                📄 Download Certificate
+
+            </button>
+
+
+            <button
+                class="btn"
+                onclick="shareCertificate()">
+
+                🔗 Share Certificate
+
+            </button>
+
+
+            <a
+                href="{{ url_for('history') }}"
+                class="btn dashboard">
+
+                ← Interview History
+
+            </a>
+
+
+            <a
+                href="{{ url_for('interviewsetup') }}"
+                class="btn">
+
+                ↻ New Interview
+
+            </a>
+
+
+        </div>
+
+
+    </div>
+
+
+    {% else %}
+
+
+    <!-- =================================================
+         NO REPORT
+    ================================================= -->
+
+    <div class="report">
+
+        <div class="no-data">
+
+            <h2>
+                No Interview Report Available
+            </h2>
+
+            <p>
+
+                Please complete an interview first
+                to generate your completion certificate.
+
+            </p>
+
+        </div>
+
+        <div class="button">
+
+            <a
+                href="{{ url_for('interviewsetup') }}"
+                class="btn">
+
+                Start Interview
+
+            </a>
+
+            <a
+                href="{{ url_for('history') }}"
+                class="btn dashboard">
+
+                View History
+
+            </a>
+
+        </div>
+
+    </div>
+
+
+    {% endif %}
+
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   DOWNLOAD CERTIFICATE
+===================================================== */
+
+function downloadCertificate(){
+
+    window.print();
+
+}
+
+
+/* =====================================================
+   SHARE CERTIFICATE
+===================================================== */
+
+function shareCertificate(){
+
+    const shareText =
+        "I completed my Interview Mirror interview assessment!";
+
+
+    if(navigator.share){
+
+        navigator.share({
+
+            title:"Interview Mirror - Completion Certificate",
+
+            text:shareText,
+
+            url:window.location.href
+
+        }).catch(function(error){
+
+            console.log(error);
+
+        });
+
+    }
+
+    else{
+
+        alert(
+            "Certificate sharing is not supported in this browser."
+        );
+
+    }
+
+}
+
+</script>
+
+{% endblock %}

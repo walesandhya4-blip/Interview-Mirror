@@ -1,0 +1,466 @@
+{% extends "base.html" %}
+
+{% block title %}
+Interview Mirror - About Us
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* ================= PAGE TITLE ================= */
+
+.page_title{
+    text-align:center;
+
+    padding:55px 20px 35px;
+
+    background:
+    radial-gradient(
+        circle at center,
+        #063b80,
+        #020b24 65%
+    );
+}
+
+
+.page_title h1{
+    font-size:42px;
+
+    margin-bottom:12px;
+}
+
+
+.page_title h1 span{
+    color:#0797ff;
+}
+
+
+.page_title p{
+    color:#a9c8ed;
+
+    font-size:17px;
+}
+
+
+/* ================= ABOUT CONTENT ================= */
+
+.about_content{
+
+    width:85%;
+
+    max-width:1100px;
+
+    margin:auto;
+
+    padding:35px 0 60px;
+}
+
+
+/* ================= INFO SECTION ================= */
+
+.info_section{
+
+    background:
+    linear-gradient(
+        145deg,
+        #071b42,
+        #04102a
+    );
+
+    border:1px solid #1459a5;
+
+    border-radius:14px;
+
+    padding:35px;
+
+    margin-bottom:30px;
+
+    box-shadow:
+    0 5px 25px
+    rgba(0,0,0,0.35);
+
+    transition:0.3s;
+}
+
+
+.info_section:hover{
+
+    border-color:#079cff;
+
+    box-shadow:
+    0 0 25px
+    rgba(0,130,255,0.35);
+}
+
+
+.info_section h2{
+
+    font-size:27px;
+
+    margin-bottom:18px;
+
+    color:#4db7ff;
+}
+
+
+.info_section p{
+
+    color:#c1d3eb;
+
+    font-size:16px;
+
+    line-height:1.8;
+}
+
+
+/* ================= WHY CHOOSE ================= */
+
+.why_section{
+
+    text-align:center;
+
+    padding:25px 0 45px;
+}
+
+
+.why_section h2{
+
+    font-size:30px;
+
+    margin-bottom:15px;
+}
+
+
+.why_section h2 span{
+
+    color:#0797ff;
+}
+
+
+.why_section p{
+
+    color:#b9cde8;
+
+    max-width:850px;
+
+    margin:auto;
+
+    line-height:1.8;
+
+    font-size:16px;
+}
+
+
+/* ================= VISION MISSION ================= */
+
+.box_container{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:25px;
+
+    flex-wrap:wrap;
+
+    margin-top:20px;
+}
+
+
+.box{
+
+    width:47%;
+
+    min-width:300px;
+
+    padding:35px 30px;
+
+    background:
+    linear-gradient(
+        145deg,
+        #071b42,
+        #04102a
+    );
+
+    border:1px solid #1459a5;
+
+    border-radius:14px;
+
+    text-align:center;
+
+    transition:0.3s;
+
+    box-shadow:
+    0 5px 20px
+    rgba(0,0,0,0.35);
+}
+
+
+.box:hover{
+
+    transform:
+    translateY(-7px);
+
+    border-color:#079cff;
+
+    box-shadow:
+    0 0 25px
+    rgba(0,140,255,0.45);
+}
+
+
+.box h2{
+
+    color:#4db7ff;
+
+    font-size:26px;
+
+    margin-bottom:15px;
+}
+
+
+.box p{
+
+    color:#c1d3eb;
+
+    line-height:1.7;
+
+    font-size:16px;
+}
+
+
+/* ================= ICON ================= */
+
+.box_icon{
+
+    font-size:45px;
+
+    margin-bottom:15px;
+}
+
+
+/* ================= FOOTER ================= */
+
+.footer{
+
+    padding:
+    22px 50px;
+
+    background:#010617;
+
+    border-top:
+    1px solid #0d4380;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    text-align:center;
+}
+
+
+.footer p{
+
+    color:#6ea4d8;
+
+    font-size:14px;
+}
+
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:900px){
+
+    .page_title h1{
+
+        font-size:35px;
+    }
+
+
+    .about_content{
+
+        width:90%;
+    }
+
+
+    .box{
+
+        width:100%;
+    }
+
+}
+
+</style>
+
+
+<!-- ================= PAGE TITLE ================= -->
+
+<section class="page_title">
+
+    <h1>
+
+        About
+        <span>
+            Interview Mirror
+        </span>
+
+    </h1>
+
+
+    <p>
+
+        Your AI-powered partner for better interview preparation
+
+    </p>
+
+</section>
+
+
+
+<!-- ================= MAIN CONTENT ================= -->
+
+<div class="about_content">
+
+
+    <!-- ================= WHO WE ARE ================= -->
+
+    <div class="info_section">
+
+        <h2>
+
+            Who We Are
+
+        </h2>
+
+
+        <p>
+
+            Interview Mirror is an online interview preparation
+            platform that helps students and job seekers improve
+            their interview skills.
+
+            It provides mock interviews, performance analysis,
+            communication improvement, and confidence-building
+            activities to prepare users for real interviews.
+
+        </p>
+
+    </div>
+
+
+
+    <!-- ================= WHY CHOOSE ================= -->
+
+    <div class="why_section">
+
+        <h2>
+
+            Why Choose
+            <span>
+                Interview Mirror?
+            </span>
+
+        </h2>
+
+
+        <p>
+
+            Our platform enables users to practice interview
+            questions, receive performance feedback, identify
+            strengths and weaknesses, and build confidence before
+            attending placement or company interviews.
+
+        </p>
+
+    </div>
+
+
+
+    <!-- ================= VISION & MISSION ================= -->
+
+    <div class="box_container">
+
+
+        <!-- ================= VISION ================= -->
+
+        <div class="box">
+
+            <div class="box_icon">
+
+                🚀
+
+            </div>
+
+
+            <h2>
+
+                Our Vision
+
+            </h2>
+
+
+            <p>
+
+                To become the most trusted interview preparation
+                platform that supports students in achieving
+                successful careers.
+
+            </p>
+
+        </div>
+
+
+
+        <!-- ================= MISSION ================= -->
+
+        <div class="box">
+
+            <div class="box_icon">
+
+                🎯
+
+            </div>
+
+
+            <h2>
+
+                Our Mission
+
+            </h2>
+
+
+            <p>
+
+                To help improve communication skills, confidence,
+                and interview performance through regular practice.
+
+            </p>
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+
+<!-- ================= FOOTER ================= -->
+
+<div class="footer">
+
+    <p>
+
+        <b>
+            @Powered by Quantum Minds
+        </b>
+
+    </p>
+
+</div>
+
+{% endblock %}

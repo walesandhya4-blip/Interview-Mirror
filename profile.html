@@ -1,0 +1,821 @@
+{% extends "base.html" %}
+
+{% block title %}
+Interview Mirror - Profile
+{% endblock %}
+
+
+{% block content %}
+
+<style>
+
+    /* ================= TITLE ================= */
+
+    .title {
+
+        text-align: center;
+
+        padding: 45px 20px 25px;
+
+        background:
+        radial-gradient(
+            circle at center,
+            #063b80,
+            #020b24 65%
+        );
+    }
+
+
+    .title h1 {
+
+        font-size: 42px;
+
+        margin-bottom: 12px;
+    }
+
+
+    .title h1 span {
+
+        color: #0797ff;
+    }
+
+
+    .title p {
+
+        color: #b9d4f5;
+
+        font-size: 17px;
+
+        line-height: 1.6;
+    }
+
+
+    /* ================= PROFILE CONTAINER ================= */
+
+    .profile-container {
+
+        width: 900px;
+
+        max-width: 92%;
+
+        margin: 30px auto 60px;
+
+        background:
+        linear-gradient(
+            145deg,
+            #071b42,
+            #04102a
+        );
+
+        padding: 35px;
+
+        border: 1px solid #1459a5;
+
+        border-radius: 14px;
+
+        box-shadow:
+        0 5px 25px rgba(0,0,0,0.4);
+
+        animation: fadeUp 0.8s ease;
+    }
+
+
+    .profile-container:hover {
+
+        border-color: #079cff;
+
+        box-shadow:
+        0 0 28px rgba(0,140,255,0.35);
+    }
+
+
+    /* ================= PROFILE TOP ================= */
+
+    .profile-top {
+
+        text-align: center;
+
+        padding-bottom: 30px;
+
+        border-bottom: 1px solid #164b83;
+    }
+
+
+    /* ================= PROFILE ICON ================= */
+
+    .profile-icon {
+
+        width: 110px;
+
+        height: 110px;
+
+        margin: 0 auto 18px;
+
+        border-radius: 50%;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        background:
+        linear-gradient(
+            135deg,
+            #006eff,
+            #00aaff
+        );
+
+        box-shadow:
+        0 0 25px rgba(0,150,255,0.45);
+
+        font-size: 48px;
+
+        font-weight: bold;
+
+        color: white;
+
+        text-transform: uppercase;
+    }
+
+
+    /* ================= NAME ================= */
+
+    .profile-top h2 {
+
+        font-size: 30px;
+
+        color: #4db7ff;
+
+        margin-bottom: 8px;
+    }
+
+
+    .profile-top p {
+
+        color: #b9cde8;
+
+        font-size: 15px;
+    }
+
+
+    /* ================= PROFILE GRID ================= */
+
+    .profile-grid {
+
+        display: grid;
+
+        grid-template-columns:
+        repeat(2, 1fr);
+
+        gap: 20px;
+
+        margin-top: 30px;
+    }
+
+
+    /* ================= PROFILE CARD ================= */
+
+    .profile-card {
+
+        background: #020c22;
+
+        border: 1px solid #245c99;
+
+        border-radius: 8px;
+
+        padding: 18px;
+
+        transition: 0.3s;
+    }
+
+
+    .profile-card:hover {
+
+        border-color: #079cff;
+
+        box-shadow:
+        0 0 12px rgba(0,140,255,0.25);
+
+        transform: translateY(-2px);
+    }
+
+
+    /* ================= LABEL ================= */
+
+    .profile-card label {
+
+        display: block;
+
+        color: #7fb7eb;
+
+        font-size: 13px;
+
+        font-weight: bold;
+
+        margin-bottom: 8px;
+
+        text-transform: uppercase;
+
+        letter-spacing: 0.5px;
+    }
+
+
+    /* ================= VALUE ================= */
+
+    .profile-card .value {
+
+        color: white;
+
+        font-size: 16px;
+
+        word-break: break-word;
+
+        line-height: 1.5;
+    }
+
+
+    /* ================= FULL WIDTH ================= */
+
+    .full-width {
+
+        grid-column: 1 / -1;
+    }
+
+
+    /* ================= RESUME ================= */
+
+    .resume-section {
+
+        margin-top: 30px;
+
+        padding-top: 25px;
+
+        border-top: 1px solid #164b83;
+    }
+
+
+    .resume-section h3 {
+
+        color: #4db7ff;
+
+        margin-bottom: 15px;
+
+        font-size: 22px;
+    }
+
+
+    /* ================= RESUME BOX ================= */
+
+    .resume-box {
+
+        background: #020c22;
+
+        border: 1px solid #245c99;
+
+        border-radius: 8px;
+
+        padding: 20px;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: space-between;
+
+        gap: 15px;
+
+        flex-wrap: wrap;
+    }
+
+
+    /* ================= RESUME NAME ================= */
+
+    .resume-name {
+
+        color: #dcecff;
+
+        font-size: 15px;
+
+        word-break: break-word;
+    }
+
+
+    /* ================= RESUME BUTTON ================= */
+
+    .resume-btn {
+
+        display: inline-block;
+
+        padding: 11px 20px;
+
+        background:
+        linear-gradient(
+            90deg,
+            #006eff,
+            #00aaff
+        );
+
+        color: white;
+
+        text-decoration: none;
+
+        border-radius: 7px;
+
+        font-weight: bold;
+
+        transition: 0.3s;
+    }
+
+
+    .resume-btn:hover {
+
+        transform: translateY(-2px);
+
+        box-shadow:
+        0 0 18px #008cff;
+    }
+
+
+    /* ================= NO RESUME ================= */
+
+    .no-resume {
+
+        color: #7693b8;
+
+        font-size: 15px;
+    }
+
+
+    /* ================= BUTTONS ================= */
+
+    .profile-actions {
+
+        display: flex;
+
+        justify-content: center;
+
+        gap: 15px;
+
+        margin-top: 30px;
+
+        flex-wrap: wrap;
+    }
+
+
+    .action-btn {
+
+        display: inline-block;
+
+        padding: 12px 25px;
+
+        border-radius: 7px;
+
+        text-decoration: none;
+
+        font-weight: bold;
+
+        color: white;
+
+        background:
+        linear-gradient(
+            90deg,
+            #006eff,
+            #00aaff
+        );
+
+        transition: 0.3s;
+
+        box-shadow:
+        0 0 15px rgba(0,140,255,0.25);
+    }
+
+
+    .action-btn:hover {
+
+        transform: translateY(-3px);
+
+        box-shadow:
+        0 0 20px #00aaff;
+    }
+
+
+    /* ================= ANIMATION ================= */
+
+    @keyframes fadeUp {
+
+        from {
+
+            opacity: 0;
+
+            transform: translateY(25px);
+        }
+
+        to {
+
+            opacity: 1;
+
+            transform: translateY(0);
+        }
+    }
+
+
+    /* ================= RESPONSIVE ================= */
+
+    @media(max-width: 700px) {
+
+        .profile-grid {
+
+            grid-template-columns: 1fr;
+        }
+
+
+        .full-width {
+
+            grid-column: auto;
+        }
+
+
+        .profile-container {
+
+            padding: 25px;
+        }
+
+
+        .title {
+
+            padding: 40px 15px 20px;
+        }
+
+
+        .title h1 {
+
+            font-size: 34px;
+        }
+    }
+
+
+    @media(max-width: 600px) {
+
+        .profile-top h2 {
+
+            font-size: 25px;
+        }
+
+
+        .profile-icon {
+
+            width: 95px;
+
+            height: 95px;
+
+            font-size: 40px;
+        }
+    }
+
+</style>
+
+
+<!-- ================= TITLE ================= -->
+
+<div class="title">
+
+    <h1>
+
+        My <span>Profile</span>
+
+    </h1>
+
+
+    <p>
+
+        View your Interview Mirror profile information.
+
+    </p>
+
+</div>
+
+
+
+<!-- ================= PROFILE ================= -->
+
+<div class="profile-container">
+
+
+    <!-- ================= PROFILE HEADER ================= -->
+
+    <div class="profile-top">
+
+
+        <!-- PROFILE ICON -->
+
+        <div class="profile-icon">
+
+            {% if profile %}
+
+                {% if profile.full_name %}
+
+                    {{ profile.full_name[0] }}
+
+                {% elif profile.name %}
+
+                    {{ profile.name[0] }}
+
+                {% else %}
+
+                    U
+
+                {% endif %}
+
+            {% else %}
+
+                U
+
+            {% endif %}
+
+        </div>
+
+
+        <!-- PROFILE NAME -->
+
+        <h2>
+
+            {% if profile %}
+
+                {{ profile.full_name or profile.name or 'User' }}
+
+            {% else %}
+
+                User
+
+            {% endif %}
+
+        </h2>
+
+
+        <!-- EMAIL -->
+
+        <p>
+
+            {% if profile %}
+
+                {{ profile.email or 'Email not available' }}
+
+            {% else %}
+
+                Email not available
+
+            {% endif %}
+
+        </p>
+
+    </div>
+
+
+
+    <!-- ================= PROFILE DETAILS ================= -->
+
+    <div class="profile-grid">
+
+
+        <!-- ================= FULL NAME ================= -->
+
+        <div class="profile-card">
+
+            <label>
+
+                Full Name
+
+            </label>
+
+
+            <div class="value">
+
+                {% if profile %}
+
+                    {{ profile.full_name or profile.name or 'Not Available' }}
+
+                {% else %}
+
+                    Not Available
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ================= EMAIL ================= -->
+
+        <div class="profile-card">
+
+            <label>
+
+                Email Address
+
+            </label>
+
+
+            <div class="value">
+
+                {% if profile %}
+
+                    {{ profile.email or 'Not Available' }}
+
+                {% else %}
+
+                    Not Available
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ================= MOBILE ================= -->
+
+        <div class="profile-card">
+
+            <label>
+
+                Mobile Number
+
+            </label>
+
+
+            <div class="value">
+
+                {% if profile %}
+
+                    {{ profile.phone or profile.mobile or 'Not Available' }}
+
+                {% else %}
+
+                    Not Available
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ================= GENDER ================= -->
+
+        <div class="profile-card">
+
+            <label>
+
+                Gender
+
+            </label>
+
+
+            <div class="value">
+
+                {% if profile %}
+
+                    {{ profile.gender or 'Not Available' }}
+
+                {% else %}
+
+                    Not Available
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ================= ADDRESS ================= -->
+
+        <div class="profile-card full-width">
+
+            <label>
+
+                Address
+
+            </label>
+
+
+            <div class="value">
+
+                {% if profile %}
+
+                    {{ profile.location or profile.address or 'Not Available' }}
+
+                {% else %}
+
+                    Not Available
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- ================= RESUME ================= -->
+
+    <div class="resume-section">
+
+        <h3>
+
+            Resume
+
+        </h3>
+
+
+        {% if profile and profile.resume %}
+
+
+            <div class="resume-box">
+
+
+                <div class="resume-name">
+
+                    📄 {{ profile.resume }}
+
+                </div>
+
+
+                <a
+                    href="{{ url_for(
+                        'static',
+                        filename='resumes/' + profile.resume
+                    ) }}"
+                    target="_blank"
+                    class="resume-btn"
+                >
+
+                    View Resume
+
+                </a>
+
+
+            </div>
+
+
+        {% else %}
+
+
+            <div class="resume-box">
+
+                <div class="no-resume">
+
+                    No resume uploaded yet.
+
+                </div>
+
+            </div>
+
+
+        {% endif %}
+
+    </div>
+
+
+
+    <!-- ================= ACTION BUTTONS ================= -->
+
+    <div class="profile-actions">
+
+
+        <a
+            href="/dashboard"
+            class="action-btn"
+        >
+
+            Dashboard
+
+        </a>
+
+
+        <a
+            href="/interviewsetup"
+            class="action-btn"
+        >
+
+            Start Interview
+
+        </a>
+
+
+    </div>
+
+
+</div>
+
+
+{% endblock %}

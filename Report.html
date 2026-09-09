@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Interview Mirror - User Report</title>
+
+<style>
+
+/* =====================================================
+                         BASIC
+===================================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial, sans-serif;
+    background:#020b24;
+    color:white;
+}
+
+
+/* =====================================================
+                         HEADER
+===================================================== */
+
+.header{
+
+    min-height:80px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    padding:0 55px;
+
+    background:
+    linear-gradient(
+        90deg,
+        #020817,
+        #071d4d,
+        #003b8f
+    );
+
+    border-bottom:1px solid #1769d1;
+
+    box-shadow:
+    0 4px 20px rgba(0,110,255,0.35);
+}
+
+
+/* =====================================================
+                           LOGO
+===================================================== */
+
+.logo_section h2{
+
+    font-size:28px;
+
+    letter-spacing:1px;
+
+    color:white;
+}
+
+.logo_section h2 span{
+
+    color:#1597ff;
+}
+
+
+/* =====================================================
+                           MENU
+===================================================== */
+
+.menu{
+
+    display:flex;
+
+    gap:10px;
+
+    align-items:center;
+
+    flex-wrap:wrap;
+
+    justify-content:center;
+}
+
+.menu a{
+
+    text-decoration:none;
+
+    color:white;
+
+    padding:11px 17px;
+
+    border-radius:6px;
+
+    font-size:15px;
+
+    transition:0.3s;
+}
+
+.menu a:hover{
+
+    background:#087cff;
+
+    box-shadow:
+    0 0 15px #087cff;
+}
+
+
+/* =====================================================
+                      REPORT SECTION
+===================================================== */
+
+.report_section{
+
+    min-height:calc(100vh - 80px);
+
+    padding:45px 4% 70px;
+
+    background:
+
+    radial-gradient(
+        circle at 80% 20%,
+        #063e91 0%,
+        transparent 35%
+    ),
+
+    linear-gradient(
+        120deg,
+        #01091e,
+        #031a43,
+        #001d55
+    );
+
+    position:relative;
+
+    overflow:hidden;
+}
+
+
+/* =====================================================
+                       BLUE CIRCLE
+===================================================== */
+
+.report_section::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:600px;
+
+    height:600px;
+
+    border-radius:50%;
+
+    border:2px solid rgba(0,136,255,0.25);
+
+    right:-180px;
+
+    top:-170px;
+
+    box-shadow:
+    0 0 40px #006eff,
+    inset 0 0 40px #006eff;
+}
+
+
+/* =====================================================
+                          TITLE
+===================================================== */
+
+.report_title{
+
+    text-align:center;
+
+    position:relative;
+
+    z-index:2;
+
+    margin-bottom:35px;
+}
+
+.report_title h1{
+
+    font-size:42px;
+
+    margin-bottom:10px;
+}
+
+.report_title h1 span{
+
+    color:#0797ff;
+}
+
+.report_title p{
+
+    color:#c4d7f5;
+
+    font-size:17px;
+
+    line-height:1.6;
+}
+
+
+/* =====================================================
+                    REPORT CONTAINER
+===================================================== */
+
+.report_container{
+
+    max-width:1400px;
+
+    margin:auto;
+
+    padding:30px;
+
+    background:
+    linear-gradient(
+        145deg,
+        #071b42,
+        #04102a
+    );
+
+    border:1px solid #1459a5;
+
+    border-radius:15px;
+
+    box-shadow:
+    0 8px 30px rgba(0,0,0,0.5),
+    0 0 25px rgba(0,100,255,0.15);
+
+    position:relative;
+
+    z-index:2;
+}
+
+
+/* =====================================================
+                       TOP INFO
+===================================================== */
+
+.report_top{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:25px;
+
+    flex-wrap:wrap;
+
+    gap:15px;
+}
+
+.report_top h2{
+
+    color:#4db7ff;
+
+    font-size:25px;
+}
+
+.total_users{
+
+    background:#061733;
+
+    border:1px solid #1459a5;
+
+    padding:12px 20px;
+
+    border-radius:8px;
+
+    color:#ffffff;
+
+    font-size:16px;
+}
+
+.total_users span{
+
+    color:#00aaff;
+
+    font-weight:bold;
+}
+
+
+/* =====================================================
+                       TABLE AREA
+===================================================== */
+
+.table_wrapper{
+
+    width:100%;
+
+    overflow-x:auto;
+
+    border-radius:10px;
+
+    border:1px solid #1459a5;
+}
+
+
+/* =====================================================
+                          TABLE
+===================================================== */
+
+table{
+
+    width:100%;
+
+    min-width:1000px;
+
+    border-collapse:collapse;
+
+    background:#061733;
+}
+
+
+/* =====================================================
+                     TABLE HEADER
+===================================================== */
+
+thead{
+
+    background:
+    linear-gradient(
+        90deg,
+        #003b8f,
+        #006eff
+    );
+}
+
+th{
+
+    padding:16px 14px;
+
+    text-align:center;
+
+    color:white;
+
+    font-size:15px;
+
+    border-right:
+    1px solid rgba(255,255,255,0.15);
+
+    white-space:nowrap;
+}
+
+
+/* =====================================================
+                     TABLE BODY
+===================================================== */
+
+td{
+
+    padding:14px 12px;
+
+    text-align:center;
+
+    color:#dcecff;
+
+    border-bottom:1px solid #163b69;
+
+    border-right:1px solid #163b69;
+
+    font-size:14px;
+
+    white-space:nowrap;
+}
+
+tbody tr{
+
+    transition:0.3s;
+}
+
+tbody tr:hover{
+
+    background:#0b2855;
+
+    box-shadow:
+    inset 0 0 15px rgba(0,140,255,0.15);
+}
+
+
+/* =====================================================
+                         RESUME
+===================================================== */
+
+.resume_btn{
+
+    display:inline-block;
+
+    padding:8px 15px;
+
+    background:
+    linear-gradient(
+        90deg,
+        #006eff,
+        #00aaff
+    );
+
+    color:white;
+
+    text-decoration:none;
+
+    border-radius:6px;
+
+    font-size:13px;
+
+    font-weight:bold;
+
+    transition:0.3s;
+}
+
+.resume_btn:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:
+    0 0 12px #00aaff;
+}
+
+
+/* =====================================================
+                       EMPTY DATA
+===================================================== */
+
+.no_data{
+
+    text-align:center;
+
+    padding:40px;
+
+    color:#9db9d9;
+
+    font-size:17px;
+}
+
+
+/* =====================================================
+                    DASHBOARD BUTTON
+===================================================== */
+
+.dashboard_area{
+
+    text-align:center;
+
+    margin-top:30px;
+}
+
+
+.dashboard_btn{
+
+    padding:13px 28px;
+
+    border:none;
+
+    border-radius:7px;
+
+    background:
+    linear-gradient(
+        90deg,
+        #006eff,
+        #00aaff
+    );
+
+    color:white;
+
+    font-size:15px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:0.3s;
+
+    box-shadow:
+    0 0 15px rgba(0,140,255,0.3);
+}
+
+
+.dashboard_btn:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:
+    0 0 15px #00aaff,
+    0 0 30px #006eff;
+}
+
+
+/* =====================================================
+                         FOOTER
+===================================================== */
+
+.footer{
+
+    padding:22px 50px;
+
+    background:#010617;
+
+    border-top:1px solid #0d4380;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+}
+
+.footer p{
+
+    color:#6ea4d8;
+
+    font-size:14px;
+}
+
+
+/* =====================================================
+                       RESPONSIVE
+===================================================== */
+
+@media(max-width:900px){
+
+    .header{
+
+        height:auto;
+
+        padding:20px;
+
+        flex-direction:column;
+
+        gap:20px;
+    }
+
+    .menu{
+
+        flex-wrap:wrap;
+
+        justify-content:center;
+    }
+
+    .report_container{
+
+        padding:20px;
+    }
+
+    .report_title h1{
+
+        font-size:34px;
+    }
+}
+
+
+@media(max-width:600px){
+
+    .report_section{
+
+        padding:35px 15px 50px;
+    }
+
+    .report_container{
+
+        padding:15px;
+    }
+
+    .report_top{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+    }
+
+    .footer{
+
+        text-align:center;
+    }
+
+    .dashboard_btn{
+
+        width:90%;
+    }
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+                         HEADER
+===================================================== -->
+
+<div class="header">
+
+    <div class="logo_section">
+
+        <h2>
+            Interview <span>Mirror</span>
+        </h2>
+
+    </div>
+
+
+    <div class="menu">
+
+        <a href="/">
+            Home
+        </a>
+
+        <a href="/aboutus">
+            About Us
+        </a>
+
+        <a href="/services">
+            Service
+        </a>
+
+        <a href="/contact">
+            Contact Us
+        </a>
+
+        <a href="/signup">
+            Sign Up
+        </a>
+
+        <a href="/signin">
+            Sign In
+        </a>
+
+        <a href="/profile">
+            Profile
+        </a>
+
+        <a href="/usersreport">
+            Report
+        </a>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+                     REPORT SECTION
+===================================================== -->
+
+<section class="report_section">
+
+
+    <!-- ================= TITLE ================= -->
+
+    <div class="report_title">
+
+        <h1>
+            User <span>Report</span>
+        </h1>
+
+        <p>
+            View registered users and their profile details.
+        </p>
+
+    </div>
+
+
+
+    <!-- ================= REPORT CONTAINER ================= -->
+
+    <div class="report_container">
+
+
+        <!-- ================= REPORT TOP ================= -->
+
+        <div class="report_top">
+
+            <h2>
+                All User Details
+            </h2>
+
+
+            <div class="total_users">
+
+                Total Users :
+
+                <span>
+                    {{ users|length }}
+                </span>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ================= TABLE ================= -->
+
+        <div class="table_wrapper">
+
+            <table>
+
+
+                <!-- ================= TABLE HEADER ================= -->
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Name
+                        </th>
+
+                        <th>
+                            Email
+                        </th>
+
+                        <th>
+                            Mobile
+                        </th>
+
+                        <th>
+                            Gender
+                        </th>
+
+                        <th>
+                            Location
+                        </th>
+
+                        <th>
+                            Resume
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+
+                <!-- ================= TABLE BODY ================= -->
+
+                <tbody>
+
+
+                {% if users %}
+
+
+                    {% for user in users %}
+
+
+                    <tr>
+
+
+                        <!-- NAME -->
+
+                        <td>
+
+                            {{ user.name }}
+
+                        </td>
+
+
+
+                        <!-- EMAIL -->
+
+                        <td>
+
+                            {{ user.email }}
+
+                        </td>
+
+
+
+                        <!-- MOBILE -->
+
+                        <td>
+
+                            {{ user.phone or 'N/A' }}
+
+                        </td>
+
+
+
+                        <!-- GENDER -->
+
+                        <td>
+
+                            {{ user.gender or 'N/A' }}
+
+                        </td>
+
+
+
+                        <!-- LOCATION -->
+
+                        <td>
+
+                            {{ user.location or 'N/A' }}
+
+                        </td>
+
+
+
+                        <!-- RESUME -->
+
+                        <td>
+
+                            {% if user.resume %}
+
+                                <a
+                                    href="{{ url_for(
+                                        'static',
+                                        filename='resumes/' ~ user.resume
+                                    ) }}"
+                                    target="_blank"
+                                    class="resume_btn"
+                                >
+                                    View Resume
+                                </a>
+
+                            {% else %}
+
+                                No Resume
+
+                            {% endif %}
+
+                        </td>
+
+
+                    </tr>
+
+
+                    {% endfor %}
+
+
+                {% else %}
+
+
+                    <tr>
+
+                        <td
+                            colspan="6"
+                            class="no_data"
+                        >
+
+                            No user data available.
+
+                        </td>
+
+                    </tr>
+
+
+                {% endif %}
+
+
+                </tbody>
+
+
+            </table>
+
+        </div>
+
+
+
+        <!-- ================= DASHBOARD BUTTON ================= -->
+
+        <div class="dashboard_area">
+
+            <button
+                class="dashboard_btn"
+                onclick="window.location.href='/dashboard'"
+            >
+
+                ← Back to Dashboard
+
+            </button>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+                         FOOTER
+===================================================== -->
+
+<div class="footer">
+
+    <p>
+        @Powered by Quantum Minds
+    </p>
+
+</div>
+
+
+</body>
+
+</html>

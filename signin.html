@@ -1,0 +1,547 @@
+{% extends "base.html" %}
+
+{% block title %}
+Interview Mirror - Sign In
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* ================= SIGN IN PAGE ================= */
+
+.signin-page{
+    min-height:calc(100vh - 160px);
+    padding-bottom:50px;
+}
+
+
+/* ================= TITLE ================= */
+
+.title{
+    text-align:center;
+
+    padding:55px 20px 35px;
+
+    background:
+    radial-gradient(
+        circle at center,
+        #063b80,
+        #020b24 65%
+    );
+}
+
+.title h1{
+    font-size:42px;
+    margin-bottom:12px;
+    color:white;
+}
+
+.title h1 span{
+    color:#0797ff;
+}
+
+.title p{
+    color:#b9d4f5;
+    font-size:17px;
+    line-height:1.6;
+}
+
+
+/* ================= SIGN IN BOX ================= */
+
+.signin{
+
+    width:420px;
+    max-width:90%;
+
+    margin:25px auto 70px;
+
+    padding:35px;
+
+    background:
+    linear-gradient(
+        145deg,
+        #071b42,
+        #04102a
+    );
+
+    border:1px solid #1459a5;
+
+    border-radius:14px;
+
+    box-shadow:
+    0 5px 25px rgba(0,0,0,0.4);
+
+    transition:0.3s;
+}
+
+.signin:hover{
+
+    border-color:#079cff;
+
+    box-shadow:
+    0 0 28px rgba(0,140,255,0.35);
+}
+
+
+/* ================= FORM TITLE ================= */
+
+.signin h2{
+
+    text-align:center;
+
+    color:#4db7ff;
+
+    font-size:28px;
+
+    margin-bottom:28px;
+}
+
+
+/* ================= LABEL ================= */
+
+.signin label{
+
+    display:block;
+
+    font-weight:bold;
+
+    color:#dcecff;
+
+    margin-bottom:7px;
+}
+
+
+/* ================= INPUT ================= */
+
+.signin input[type="email"],
+.signin input[type="password"]{
+
+    width:100%;
+
+    padding:13px;
+
+    margin-bottom:20px;
+
+    border:1px solid #245c99;
+
+    border-radius:6px;
+
+    background:#020c22;
+
+    color:white;
+
+    font-size:15px;
+
+    outline:none;
+
+    transition:0.3s;
+}
+
+
+/* ================= PLACEHOLDER ================= */
+
+.signin input::placeholder{
+
+    color:#7693b8;
+}
+
+
+/* ================= INPUT FOCUS ================= */
+
+.signin input[type="email"]:focus,
+.signin input[type="password"]:focus{
+
+    border-color:#079cff;
+
+    box-shadow:
+    0 0 10px rgba(0,140,255,0.3);
+}
+
+
+/* ================= BUTTON ================= */
+
+.btn{
+
+    width:100%;
+
+    padding:13px;
+
+    margin-top:5px;
+
+    border:none;
+
+    border-radius:7px;
+
+    background:
+    linear-gradient(
+        90deg,
+        #006eff,
+        #00aaff
+    );
+
+    color:white;
+
+    font-size:16px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    box-shadow:
+    0 0 18px rgba(0,140,255,0.35);
+
+    transition:0.3s;
+}
+
+
+.btn:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:
+    0 0 15px #00aaff,
+    0 0 30px #006eff;
+}
+
+
+/* ================= LET'S START ================= */
+
+.start-btn{
+
+    margin-top:15px;
+}
+
+
+/* ================= SIGN UP LINK ================= */
+
+.signup_link{
+
+    text-align:center;
+
+    margin-top:22px;
+}
+
+
+.signup_link p{
+
+    color:#b9cde8;
+
+    font-size:15px;
+}
+
+
+.signup_link a{
+
+    text-decoration:none;
+
+    color:#36aaff;
+
+    font-weight:bold;
+
+    margin-left:5px;
+}
+
+
+.signup_link a:hover{
+
+    color:#7acbff;
+
+    text-decoration:underline;
+}
+
+
+/* ================= ANIMATION ================= */
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(25px);
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+    }
+}
+
+
+.title,
+.signin{
+
+    animation:
+    fadeUp 0.8s ease;
+}
+
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:600px){
+
+    .title{
+
+        padding:40px 15px 25px;
+    }
+
+    .title h1{
+
+        font-size:34px;
+    }
+
+    .title p{
+
+        font-size:15px;
+    }
+
+    .signin{
+
+        width:90%;
+
+        padding:25px;
+
+        margin-bottom:45px;
+    }
+
+}
+
+</style>
+
+
+<div class="signin-page">
+
+
+    <!-- ================= TITLE ================= -->
+
+    <div class="title">
+
+        <h1>
+
+            Sign <span>In</span>
+
+        </h1>
+
+        <p>
+
+            Login to Continue Your Interview Preparation
+
+        </p>
+
+    </div>
+
+
+    <!-- ================= SIGN IN BOX ================= -->
+
+    <div class="signin">
+
+        <h2>
+
+            Welcome Back
+
+        </h2>
+
+
+        <!-- ================= LOGIN FORM ================= -->
+
+        <form
+            id="loginForm"
+            action="/signin"
+            method="POST"
+        >
+
+
+            <!-- ================= EMAIL ================= -->
+
+            <label for="email">
+
+                Email Address
+
+            </label>
+
+            <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Enter Email Address"
+                autocomplete="email"
+                required
+            >
+
+
+            <!-- ================= PASSWORD ================= -->
+
+            <label for="password">
+
+                Password
+
+            </label>
+
+            <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Enter Password"
+                autocomplete="current-password"
+                required
+            >
+
+
+            <!-- ================= SIGN IN BUTTON ================= -->
+
+            <button
+                type="submit"
+                class="btn"
+            >
+
+                Sign In
+
+            </button>
+
+
+            <!-- ================= LET'S START ================= -->
+
+            <button
+                type="button"
+                class="btn start-btn"
+                onclick="window.location.href='/interviewsetup';"
+            >
+
+                Let's Start
+
+            </button>
+
+        </form>
+
+
+        <!-- ================= SIGN UP ================= -->
+
+        <div class="signup_link">
+
+            <p>
+
+                Don't have an account?
+
+                <a href="/signup">
+
+                    Sign Up
+
+                </a>
+
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ================= JAVASCRIPT ================= -->
+
+<script>
+
+document
+.getElementById("loginForm")
+.addEventListener(
+    "submit",
+    function(event){
+
+        event.preventDefault();
+
+
+        /* ================= GET VALUES ================= */
+
+        let email =
+            document
+            .getElementById("email")
+            .value
+            .trim();
+
+        let password =
+            document
+            .getElementById("password")
+            .value;
+
+
+        /* ================= EMAIL VALIDATION ================= */
+
+        if(email === "")
+        {
+
+            alert(
+                "Please enter your email address"
+            );
+
+            document
+            .getElementById("email")
+            .focus();
+
+            return false;
+        }
+
+
+        if(
+            !/^[^\s@]+@[^\s@]+\.[^\s@]+$/
+            .test(email)
+        )
+        {
+
+            alert(
+                "Please enter a valid email address"
+            );
+
+            document
+            .getElementById("email")
+            .focus();
+
+            return false;
+        }
+
+
+        /* ================= PASSWORD VALIDATION ================= */
+
+        if(password === "")
+        {
+
+            alert(
+                "Please enter your password"
+            );
+
+            document
+            .getElementById("password")
+            .focus();
+
+            return false;
+        }
+
+
+        if(password.length < 8)
+        {
+
+            alert(
+                "Password must contain at least 8 characters"
+            );
+
+            document
+            .getElementById("password")
+            .focus();
+
+            return false;
+        }
+
+
+        /* ================= SEND TO FLASK ================= */
+
+        this.submit();
+
+    }
+);
+
+</script>
+
+{% endblock %}

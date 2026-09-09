@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>
+    Interview Questions - Interview Mirror
+</title>
+
+<style>
+
+/* =========================================================
+   RESET
+========================================================= */
+
+*{
+
+    margin:0;
+
+    padding:0;
+
+    box-sizing:border-box;
+
+}
+
+
+/* =========================================================
+   BODY
+========================================================= */
+
+body{
+
+    min-height:100vh;
+
+    font-family:Arial,sans-serif;
+
+    background:
+    linear-gradient(
+        135deg,
+        #020817,
+        #031a43,
+        #020b24
+    );
+
+    color:white;
+
+    padding:40px 20px;
+
+}
+
+
+/* =========================================================
+   CONTAINER
+========================================================= */
+
+.container{
+
+    width:95%;
+
+    max-width:900px;
+
+    margin:auto;
+
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.header{
+
+    text-align:center;
+
+    margin-bottom:30px;
+
+}
+
+.header h1{
+
+    color:#36aaff;
+
+    margin-bottom:15px;
+
+    font-size:32px;
+
+    text-shadow:
+    0 0 15px
+    rgba(54,170,255,0.4);
+
+}
+
+.header p{
+
+    color:#c9ddf5;
+
+    margin:5px 0;
+
+    font-size:15px;
+
+}
+
+
+/* =========================================================
+   SETUP ID
+========================================================= */
+
+.setup-id-box{
+
+    text-align:center;
+
+    margin-bottom:25px;
+
+}
+
+.setup-id{
+
+    display:inline-block;
+
+    padding:8px 15px;
+
+    border-radius:20px;
+
+    background:#061733;
+
+    border:1px solid #1459a5;
+
+    color:#8fcaff;
+
+    font-size:13px;
+
+}
+
+
+/* =========================================================
+   SETUP INFO
+========================================================= */
+
+.setup-info{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    justify-content:center;
+
+    gap:12px;
+
+    margin-bottom:30px;
+
+}
+
+.badge{
+
+    padding:10px 18px;
+
+    background:#071b42;
+
+    border:1px solid #1459a5;
+
+    border-radius:20px;
+
+    color:#c9ddf5;
+
+    font-size:14px;
+
+    box-shadow:
+    0 0 10px
+    rgba(0,140,255,0.12);
+
+}
+
+.badge strong{
+
+    color:white;
+
+}
+
+
+/* =========================================================
+   QUESTION COUNT
+========================================================= */
+
+.question-count-box{
+
+    text-align:center;
+
+    margin-bottom:20px;
+
+}
+
+.question-count{
+
+    display:inline-block;
+
+    padding:8px 16px;
+
+    border-radius:20px;
+
+    background:#061733;
+
+    border:1px solid #1459a5;
+
+    color:#8fcaff;
+
+    font-size:13px;
+
+}
+
+
+/* =========================================================
+   QUESTION CARD
+========================================================= */
+
+.question-card{
+
+    background:
+    linear-gradient(
+        145deg,
+        #071b42,
+        #04102a
+    );
+
+    border:1px solid #1459a5;
+
+    border-radius:15px;
+
+    padding:25px;
+
+    margin-bottom:20px;
+
+    box-shadow:
+    0 0 20px
+    rgba(0,140,255,0.15);
+
+    transition:0.3s;
+
+}
+
+.question-card:hover{
+
+    border-color:#36aaff;
+
+    box-shadow:
+    0 0 25px
+    rgba(0,160,255,0.3);
+
+    transform:
+    translateY(-2px);
+
+}
+
+
+/* =========================================================
+   QUESTION NUMBER
+========================================================= */
+
+.question-number{
+
+    color:#36aaff;
+
+    font-size:15px;
+
+    font-weight:bold;
+
+    margin-bottom:12px;
+
+}
+
+
+/* =========================================================
+   QUESTION TEXT
+========================================================= */
+
+.question-text{
+
+    color:white;
+
+    font-size:18px;
+
+    line-height:1.6;
+
+    word-wrap:break-word;
+
+}
+
+
+/* =========================================================
+   QUESTION ID
+========================================================= */
+
+.question-id{
+
+    margin-top:12px;
+
+    color:#7ea9d5;
+
+    font-size:13px;
+
+}
+
+
+/* =========================================================
+   NO QUESTION
+========================================================= */
+
+.no-question{
+
+    text-align:center;
+
+    padding:35px;
+
+    background:#071b42;
+
+    border:1px solid #1459a5;
+
+    border-radius:15px;
+
+    color:#c9ddf5;
+
+    margin-top:20px;
+
+}
+
+.no-question h3{
+
+    color:#36aaff;
+
+    margin-bottom:10px;
+
+}
+
+
+/* =========================================================
+   BUTTON AREA
+========================================================= */
+
+.button-area{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:15px;
+
+    flex-wrap:wrap;
+
+    margin-top:30px;
+
+}
+
+
+/* =========================================================
+   COMMON BUTTON
+========================================================= */
+
+.action-btn{
+
+    display:inline-block;
+
+    padding:13px 28px;
+
+    color:white;
+
+    text-decoration:none;
+
+    border-radius:7px;
+
+    font-weight:bold;
+
+    transition:0.3s;
+
+    border:none;
+
+    cursor:pointer;
+
+}
+
+
+/* =========================================================
+   BACK BUTTON
+========================================================= */
+
+.back-btn{
+
+    background:
+    linear-gradient(
+        90deg,
+        #006eff,
+        #00aaff
+    );
+
+}
+
+.back-btn:hover{
+
+    box-shadow:
+    0 0 20px
+    rgba(0,160,255,0.6);
+
+    transform:
+    translateY(-2px);
+
+}
+
+
+/* =========================================================
+   START BUTTON
+========================================================= */
+
+.start-btn{
+
+    background:
+    linear-gradient(
+        90deg,
+        #008cff,
+        #00c6ff
+    );
+
+}
+
+.start-btn:hover{
+
+    box-shadow:
+    0 0 20px
+    rgba(0,200,255,0.7);
+
+    transform:
+    translateY(-2px);
+
+}
+
+
+/* =========================================================
+   QUESTION REPORT BUTTON
+========================================================= */
+
+.report-btn{
+
+    background:
+    linear-gradient(
+        90deg,
+        #174ea6,
+        #087cff
+    );
+
+}
+
+.report-btn:hover{
+
+    box-shadow:
+    0 0 20px
+    rgba(0,140,255,0.7);
+
+    transform:
+    translateY(-2px);
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:600px){
+
+    body{
+
+        padding:
+        25px 12px;
+
+    }
+
+    .container{
+
+        width:100%;
+
+    }
+
+    .header h1{
+
+        font-size:26px;
+
+    }
+
+    .question-card{
+
+        padding:20px;
+
+    }
+
+    .question-text{
+
+        font-size:16px;
+
+    }
+
+    .badge{
+
+        width:100%;
+
+        text-align:center;
+
+    }
+
+    .action-btn{
+
+        width:100%;
+
+        text-align:center;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+<!-- =====================================================
+     HEADER
+====================================================== -->
+
+<div class="header">
+
+    <h1>
+        Interview Questions
+    </h1>
+
+    <p>
+        Your selected interview questions are ready.
+    </p>
+
+</div>
+
+
+<!-- =====================================================
+     SETUP ID
+====================================================== -->
+
+{% if setup_id %}
+
+<div class="setup-id-box">
+
+    <span class="setup-id">
+
+        Interview Setup ID:
+        {{ setup_id }}
+
+    </span>
+
+</div>
+
+{% endif %}
+
+
+<!-- =====================================================
+     SETUP DETAILS
+====================================================== -->
+
+<div class="setup-info">
+
+
+    <!-- DEPARTMENT -->
+
+    <div class="badge">
+
+        Department:
+
+        <strong>
+            {{ department }}
+        </strong>
+
+    </div>
+
+
+    <!-- DOMAIN -->
+
+    <div class="badge">
+
+        Domain:
+
+        <strong>
+            {{ domain }}
+        </strong>
+
+    </div>
+
+
+    <!-- CATEGORY -->
+
+    <div class="badge">
+
+        Category:
+
+        <strong>
+            {{ category }}
+        </strong>
+
+    </div>
+
+
+    <!-- DIFFICULTY -->
+
+    <div class="badge">
+
+        Difficulty:
+
+        <strong>
+            {{ difficulty }}
+        </strong>
+
+    </div>
+
+
+</div>
+
+
+<!-- =====================================================
+     QUESTION COUNT
+====================================================== -->
+
+{% if questions %}
+
+<div class="question-count-box">
+
+    <span class="question-count">
+
+        Total Questions:
+        {{ questions|length }}
+
+    </span>
+
+</div>
+
+{% endif %}
+
+
+<!-- =====================================================
+     QUESTIONS
+====================================================== -->
+
+{% if questions %}
+
+
+    {% for q in questions %}
+
+
+    <div class="question-card">
+
+
+        <!-- QUESTION NUMBER -->
+
+        <div class="question-number">
+
+            Question
+            {{ loop.index }}
+
+        </div>
+
+
+        <!-- QUESTION TEXT -->
+
+        <div class="question-text">
+
+            {{ q["question"] }}
+
+        </div>
+
+
+        <!-- QUESTION ID -->
+
+        <div class="question-id">
+
+            Question ID:
+            {{ q["question_id"] }}
+
+        </div>
+
+
+    </div>
+
+
+    {% endfor %}
+
+
+{% else %}
+
+
+    <!-- =================================================
+         NO QUESTIONS
+    ================================================== -->
+
+    <div class="no-question">
+
+        <h3>
+            No Questions Available
+        </h3>
+
+        <p>
+
+            No questions were found for the selected
+            interview setup.
+
+        </p>
+
+    </div>
+
+
+{% endif %}
+
+
+<!-- =====================================================
+     BUTTON AREA
+====================================================== -->
+
+<div class="button-area">
+
+
+    <!-- BACK -->
+
+    <a
+        href="/interviewsetup"
+        class="action-btn back-btn"
+    >
+
+        ← Back to Interview Setup
+
+    </a>
+
+
+    <!-- QUESTION REPORT -->
+
+    <a
+        href="/question_report"
+        class="action-btn report-btn"
+    >
+
+        Question Report
+
+    </a>
+
+
+    <!-- START INTERVIEW -->
+
+    <a
+        href="/Interviewinstruction"
+        class="action-btn start-btn"
+    >
+
+        Start Interview →
+
+    </a>
+
+
+</div>
+
+
+</div>
+
+
+</body>
+
+</html>

@@ -1,0 +1,1311 @@
+```python
+from flask import Flask, render_template, request, redirect
+import mysql.connector
+
+app = Flask(__name__)
+
+
+# =========================================================
+# DATABASE CONNECTION
+# =========================================================
+
+def get_db_connection():
+
+    return mysql.connector.connect(
+        host="localhost",
+        port=3306,
+        user="root",
+        password="root",
+        database="my_project",
+        connection_timeout=5,
+        use_pure=True
+    )
+
+
+# =========================================================
+# HOME PAGE
+# =========================================================
+
+@app.route("/")
+def index():
+    return render_template("index.html")
+
+
+# =========================================================
+# ABOUT US
+# =========================================================
+
+@app.route("/aboutus")
+def aboutus():
+    return render_template("aboutus.html")
+
+
+# =========================================================
+# SERVICES
+# =========================================================
+
+@app.route("/services")
+def services():
+    return render_template("services.html")
+
+
+# =========================================================
+# CONTACT
+# =========================================================
+
+@app.route("/contact")
+def contact():
+    return render_template("contact.html")
+
+
+# =========================================================
+# SIGN UP PAGE
+# =========================================================
+
+@app.route("/signup")
+def signup():
+    return render_template("signup.html")
+
+
+# =========================================================
+# REGISTER
+# =========================================================
+
+@app.route("/register", methods=["POST"])
+def register():
+
+    print("========================================")
+    print("REGISTER ROUTE CALLED")
+    print("========================================")
+
+    name = request.form.get("name")
+    email = request.form.get("email")
+    mobile = request.form.get("mobile")
+    gender = request.form.get("gender")
+    password = request.form.get("password")
+    confirm_password = request.form.get("confirmPassword")
+    address = request.form.get("address")
+
+    print("NAME:", name)
+    print("EMAIL:", email)
+    print("MOBILE:", mobile)
+    print("GENDER:", gender)
+    print("ADDRESS:", address)
+
+    # -----------------------------------------------------
+    # PASSWORD CHECK
+    # -----------------------------------------------------
+
+    if password != confirm_password:
+
+        return """
+        <h2>Password and Confirm Password do not match!</h2>
+        <br>
+        <a href="/signup">Go Back</a>
+        """
+
+    db = None
+    cursor = None
+
+    try:
+
+        db = get_db_connection()
+        cursor = db.cursor()
+
+        # -------------------------------------------------
+        # INSERT REGISTRATION
+        # -------------------------------------------------
+
+        query = """
+        INSERT INTO registration
+        (name, email, mobile, gender, password, address)
+        VALUES (%s, %s, %s, %s, %s, %s)
+        """
+
+        values = (
+            name,
+            email,
+            mobile,
+            gender,
+            password,
+            address
+        )
+
+        cursor.execute(query, values)
+
+        db.commit()
+
+        print("REGISTRATION SAVED SUCCESSFULLY")
+
+        return f"""
+        <!DOCTYPE html>
+
+        <html>
+
+        <head>
+
+            <title>Registration Successful</title>
+
+            <style>
+
+                body {{
+                    margin:0;
+                    padding:0;
+                    min-height:100vh;
+
+                    display:flex;
+                    justify-content:center;
+                    align-items:center;
+
+                    font-family:Arial,sans-serif;
+
+                    background:
+                    linear-gradient(
+                        135deg,
+                        #020817,
+                        #031a43,
+                        #020b24
+                    );
+
+                    color:white;
+                }}
+
+                .success-box {{
+                    width:90%;
+                    max-width:500px;
+
+                    padding:40px;
+
+                    text-align:center;
+
+                    background:
+                    linear-gradient(
+                        145deg,
+                        #071b42,
+                        #04102a
+                    );
+
+                    border:1px solid #079cff;
+
+                    border-radius:15px;
+
+                    box-shadow:
+                    0 0 30px
+                    rgba(0,140,255,0.4);
+                }}
+
+                h2 {{
+                    color:#36aaff;
+                }}
+
+                p {{
+                    color:#c9ddf5;
+                    font-size:16px;
+                }}
+
+                a {{
+                    display:inline-block;
+
+                    margin-top:20px;
+
+                    padding:12px 25px;
+
+                    background:
+                    linear-gradient(
+                        90deg,
+                        #006eff,
+                        #00aaff
+                    );
+
+                    color:white;
+
+                    text-decoration:none;
+
+                    border-radius:7px;
+
+                    font-weight:bold;
+                }}
+
+            </style>
+
+        </head>
+
+        <body>
+
+            <div class="success-box">
+
+                <h2>
+                    Registration Successful! 🎉
+                </h2>
+
+                <p>
+                    Welcome, {name}!
+                </p>
+
+                <p>
+                    Your account has been created successfully.
+                </p>
+
+                <p>
+                    Your data has been saved in MySQL database.
+                </p>
+
+                <a href="/signin">
+                    Go To Sign In
+                </a>
+
+            </div>
+
+        </body>
+
+        </html>
+        """
+
+    except mysql.connector.Error as error:
+
+        print("MYSQL ERROR:", error)
+
+        return f"""
+        <h2>MySQL Database Error</h2>
+
+        <p>{error}</p>
+
+        <br>
+
+        <a href="/signup">Go Back</a>
+        """
+
+    except Exception as error:
+
+        print("OTHER ERROR:", error)
+
+        return f"""
+        <h2>Something went wrong</h2>
+
+        <p>{error}</p>
+
+        <br>
+
+        <a href="/signup">Go Back</a>
+        """
+
+    finally:
+
+        if cursor:
+            cursor.close()
+
+        if db:
+            db.close()
+
+
+# =========================================================
+# SIGN IN
+# =========================================================
+
+@app.route("/signin", methods=["GET", "POST"])
+def signin():
+
+    if request.method == "GET":
+        return render_template("signin.html")
+
+    email = request.form.get("email")
+    password = request.form.get("password")
+
+    print("========================================")
+    print("SIGN IN ROUTE CALLED")
+    print("EMAIL:", email)
+    print("========================================")
+
+    if not email or not password:
+
+        return """
+        <h2>Please enter Email and Password</h2>
+
+        <br>
+
+        <a href="/signin">
+            Go Back
+        </a>
+        """
+
+    db = None
+    cursor = None
+
+    try:
+
+        db = get_db_connection()
+        cursor = db.cursor()
+
+        query = """
+        INSERT INTO login
+        (email, password)
+        VALUES (%s, %s)
+        """
+
+        values = (
+            email,
+            password
+        )
+
+        cursor.execute(query, values)
+
+        db.commit()
+
+        print("LOGIN DATA SAVED SUCCESSFULLY")
+
+        return """
+        <!DOCTYPE html>
+
+        <html>
+
+        <head>
+
+            <title>Login Successful</title>
+
+            <style>
+
+                body {
+                    margin:0;
+                    padding:0;
+                    min-height:100vh;
+
+                    display:flex;
+                    justify-content:center;
+                    align-items:center;
+
+                    font-family:Arial,sans-serif;
+
+                    background:
+                    linear-gradient(
+                        135deg,
+                        #020817,
+                        #031a43,
+                        #020b24
+                    );
+
+                    color:white;
+                }
+
+                .success-box {
+
+                    width:90%;
+                    max-width:500px;
+
+                    padding:40px;
+
+                    text-align:center;
+
+                    background:
+                    linear-gradient(
+                        145deg,
+                        #071b42,
+                        #04102a
+                    );
+
+                    border:1px solid #079cff;
+
+                    border-radius:15px;
+
+                    box-shadow:
+                    0 0 30px
+                    rgba(0,140,255,0.4);
+                }
+
+                h2 {
+                    color:#36aaff;
+                }
+
+                p {
+                    color:#c9ddf5;
+                }
+
+                a {
+
+                    display:inline-block;
+
+                    margin-top:20px;
+
+                    padding:12px 25px;
+
+                    background:
+                    linear-gradient(
+                        90deg,
+                        #006eff,
+                        #00aaff
+                    );
+
+                    color:white;
+
+                    text-decoration:none;
+
+                    border-radius:7px;
+
+                    font-weight:bold;
+                }
+
+            </style>
+
+        </head>
+
+        <body>
+
+            <div class="success-box">
+
+                <h2>
+                    Login Successful! 🎉
+                </h2>
+
+                <p>
+                    Your login data has been saved successfully.
+                </p>
+
+                <p>
+                    You can continue your interview preparation.
+                </p>
+
+                <a href="/interviewsetup">
+                    Let's Start
+                </a>
+
+            </div>
+
+        </body>
+
+        </html>
+        """
+
+    except mysql.connector.Error as error:
+
+        print("MYSQL ERROR:", error)
+
+        return f"""
+        <h2>MySQL Database Error</h2>
+
+        <p>{error}</p>
+
+        <br>
+
+        <a href="/signin">Go Back</a>
+        """
+
+    except Exception as error:
+
+        print("OTHER ERROR:", error)
+
+        return f"""
+        <h2>Something went wrong</h2>
+
+        <p>{error}</p>
+
+        <br>
+
+        <a href="/signin">Go Back</a>
+        """
+
+    finally:
+
+        if cursor:
+            cursor.close()
+
+        if db:
+            db.close()
+
+
+# =========================================================
+# PROFILE
+# =========================================================
+
+@app.route("/profile")
+def profile():
+
+    return render_template("profile.html")
+
+
+# =========================================================
+# INTERVIEW SETUP PAGE
+# =========================================================
+
+@app.route("/interviewsetup")
+def interviewsetup():
+
+    return render_template("interviewsetup.html")
+
+
+# =========================================================
+# SAVE INTERVIEW SETUP
+# =========================================================
+
+@app.route("/save_setup", methods=["POST"])
+def save_setup():
+
+    print("========================================")
+    print("INTERVIEW SETUP SAVE")
+    print("========================================")
+
+    department = request.form.get("department")
+    domain = request.form.get("domain")
+    category = request.form.get("category")
+    difficulty = request.form.get("difficulty")
+
+    print("DEPARTMENT:", department)
+    print("DOMAIN:", domain)
+    print("CATEGORY:", category)
+    print("DIFFICULTY:", difficulty)
+
+    # -----------------------------------------------------
+    # VALIDATION
+    # -----------------------------------------------------
+
+    if not department or not domain or not category or not difficulty:
+
+        return """
+        <script>
+
+        alert("Please select all Interview Setup details.");
+
+        window.history.back();
+
+        </script>
+        """
+
+    db = None
+    cursor = None
+
+    try:
+
+        db = get_db_connection()
+        cursor = db.cursor()
+
+        # -------------------------------------------------
+        # GET LATEST REGISTERED USER
+        # -------------------------------------------------
+
+        cursor.execute("""
+            SELECT registration_id
+            FROM registration
+            ORDER BY registration_id DESC
+            LIMIT 1
+        """)
+
+        user = cursor.fetchone()
+
+        if not user:
+
+            return """
+            <script>
+
+            alert("Please register first.");
+
+            window.location.href="/signup";
+
+            </script>
+            """
+
+        user_id = user[0]
+
+        print("USER ID:", user_id)
+
+        # -------------------------------------------------
+        # SAVE SETUP
+        # -------------------------------------------------
+
+        query = """
+        INSERT INTO setup
+        (
+            user_id,
+            department,
+            domain,
+            category,
+            difficulty
+        )
+        VALUES
+        (
+            %s,
+            %s,
+            %s,
+            %s,
+            %s
+        )
+        """
+
+        values = (
+            user_id,
+            department,
+            domain,
+            category,
+            difficulty
+        )
+
+        cursor.execute(query, values)
+
+        db.commit()
+
+        print("INTERVIEW SETUP SAVED SUCCESSFULLY")
+
+        return redirect("/questions")
+
+    except mysql.connector.Error as error:
+
+        print("MYSQL ERROR:", error)
+
+        return f"""
+        <h2>MySQL Database Error</h2>
+
+        <p>{error}</p>
+
+        <br>
+
+        <a href="/interviewsetup">
+            Go Back
+        </a>
+        """
+
+    except Exception as error:
+
+        print("OTHER ERROR:", error)
+
+        return f"""
+        <h2>Something went wrong</h2>
+
+        <p>{error}</p>
+
+        <br>
+
+        <a href="/interviewsetup">
+            Go Back
+        </a>
+        """
+
+    finally:
+
+        if cursor:
+            cursor.close()
+
+        if db:
+            db.close()
+
+
+# =========================================================
+# QUESTIONS PAGE
+# =========================================================
+
+@app.route("/questions")
+def questions():
+
+    print("========================================")
+    print("QUESTIONS ROUTE CALLED")
+    print("========================================")
+
+    db = None
+    cursor = None
+
+    try:
+
+        db = get_db_connection()
+        cursor = db.cursor()
+
+        # -------------------------------------------------
+        # GET LATEST SETUP
+        # -------------------------------------------------
+
+        cursor.execute("""
+            SELECT
+                department,
+                domain,
+                category,
+                difficulty
+            FROM setup
+            ORDER BY setup_id DESC
+            LIMIT 1
+        """)
+
+        setup_data = cursor.fetchone()
+
+        if not setup_data:
+
+            return """
+            <script>
+
+            alert("Please complete Interview Setup first.");
+
+            window.location.href="/interviewsetup";
+
+            </script>
+            """
+
+        department = setup_data[0]
+        domain = setup_data[1]
+        category = setup_data[2]
+        difficulty = setup_data[3]
+
+        print("DEPARTMENT:", department)
+        print("DOMAIN:", domain)
+        print("CATEGORY:", category)
+        print("DIFFICULTY:", difficulty)
+
+        # -------------------------------------------------
+        # GET QUESTIONS
+        # -------------------------------------------------
+
+        question_query = """
+        SELECT
+            question_id,
+            question
+        FROM interview_questions
+        WHERE department = %s
+        AND domain = %s
+        AND category = %s
+        AND difficulty = %s
+        ORDER BY question_id ASC
+        """
+
+        question_values = (
+            department,
+            domain,
+            category,
+            difficulty
+        )
+
+        cursor.execute(
+            question_query,
+            question_values
+        )
+
+        questions_data = cursor.fetchall()
+
+        print("QUESTIONS FOUND:", len(questions_data))
+
+        if not questions_data:
+
+            return f"""
+            <!DOCTYPE html>
+
+            <html>
+
+            <head>
+
+                <title>No Questions Found</title>
+
+                <style>
+
+                    * {{
+                        margin:0;
+                        padding:0;
+                        box-sizing:border-box;
+                    }}
+
+                    body {{
+
+                        min-height:100vh;
+
+                        display:flex;
+                        justify-content:center;
+                        align-items:center;
+
+                        font-family:Arial,sans-serif;
+
+                        background:
+                        linear-gradient(
+                            135deg,
+                            #020817,
+                            #031a43,
+                            #020b24
+                        );
+
+                        color:white;
+                    }}
+
+                    .box {{
+
+                        width:90%;
+                        max-width:600px;
+
+                        padding:45px;
+
+                        text-align:center;
+
+                        background:
+                        linear-gradient(
+                            145deg,
+                            #071b42,
+                            #04102a
+                        );
+
+                        border:1px solid #078cff;
+
+                        border-radius:15px;
+
+                        box-shadow:
+                        0 0 30px
+                        rgba(0,140,255,0.35);
+                    }}
+
+                    h2 {{
+                        color:#36aaff;
+                        margin-bottom:20px;
+                    }}
+
+                    p {{
+                        color:#c9ddf5;
+                        line-height:1.8;
+                        margin-bottom:10px;
+                    }}
+
+                    .details {{
+
+                        margin-top:20px;
+
+                        padding:20px;
+
+                        background:#061733;
+
+                        border:1px solid #1459a5;
+
+                        border-radius:10px;
+
+                        text-align:left;
+                    }}
+
+                    .details strong {{
+                        color:#5dbbff;
+                    }}
+
+                    a {{
+
+                        display:inline-block;
+
+                        margin-top:25px;
+
+                        padding:13px 28px;
+
+                        background:
+                        linear-gradient(
+                            90deg,
+                            #006eff,
+                            #00aaff
+                        );
+
+                        color:white;
+
+                        text-decoration:none;
+
+                        border-radius:7px;
+
+                        font-weight:bold;
+                    }}
+
+                </style>
+
+            </head>
+
+            <body>
+
+                <div class="box">
+
+                    <h2>
+                        No Questions Available
+                    </h2>
+
+                    <p>
+                        No questions were found for the selected setup.
+                    </p>
+
+                    <div class="details">
+
+                        <p>
+                            <strong>Department:</strong>
+                            {department}
+                        </p>
+
+                        <p>
+                            <strong>Domain:</strong>
+                            {domain}
+                        </p>
+
+                        <p>
+                            <strong>Category:</strong>
+                            {category}
+                        </p>
+
+                        <p>
+                            <strong>Difficulty:</strong>
+                            {difficulty}
+                        </p>
+
+                    </div>
+
+                    <p>
+                        Please select another interview combination.
+                    </p>
+
+                    <a href="/interviewsetup">
+                        Back to Interview Setup
+                    </a>
+
+                </div>
+
+            </body>
+
+            </html>
+            """
+
+        return render_template(
+            "questions.html",
+            questions=questions_data,
+            department=department,
+            domain=domain,
+            category=category,
+            difficulty=difficulty
+        )
+
+    except mysql.connector.Error as error:
+
+        print("QUESTIONS MYSQL ERROR:", error)
+
+        return f"""
+        <h2>Database Error</h2>
+
+        <p>{error}</p>
+
+        <br>
+
+        <a href="/interviewsetup">
+            Go Back
+        </a>
+        """
+
+    except Exception as error:
+
+        print("QUESTIONS ERROR:", error)
+
+        return f"""
+        <h2>Something went wrong</h2>
+
+        <p>{error}</p>
+
+        <br>
+
+        <a href="/interviewsetup">
+            Go Back
+        </a>
+        """
+
+    finally:
+
+        if cursor:
+            cursor.close()
+
+        if db:
+            db.close()
+
+
+# =========================================================
+# INTERVIEW INSTRUCTION
+# =========================================================
+
+@app.route("/Interviewinstruction")
+def Interviewinstruction():
+
+    return render_template("Interviewinstruction.html")
+
+
+# =========================================================
+# LISTEN
+# =========================================================
+
+@app.route("/listen")
+def listen():
+
+    return render_template("listen.html")
+
+
+# =========================================================
+# SCORE
+# =========================================================
+
+@app.route("/score")
+def score():
+
+    return render_template("score.html")
+
+
+# =========================================================
+# DASHBOARD
+# =========================================================
+
+@app.route("/dashboard")
+def dashboard():
+
+    return render_template("dashboard.html")
+
+
+# =========================================================
+# RESULT
+# =========================================================
+
+@app.route("/result")
+def result():
+
+    return render_template("result.html")
+
+
+# =========================================================
+# HISTORY
+# =========================================================
+
+@app.route("/history")
+def history():
+
+    return render_template("history.html")
+
+
+# =========================================================
+# COMPARISION
+# =========================================================
+
+@app.route("/comparision")
+def comparision():
+
+    return render_template("comparision.html")
+
+
+# =========================================================
+# CERTIFICATE
+# =========================================================
+
+@app.route("/certificate")
+def certificate():
+
+    return render_template("certificate.html")
+
+
+# =========================================================
+# USERS REPORT
+# =========================================================
+
+@app.route("/usersreport")
+def users_report():
+
+    print("========================================")
+    print("USER REPORT ROUTE CALLED")
+    print("========================================")
+
+    db = None
+    cursor = None
+
+    try:
+
+        db = get_db_connection()
+        cursor = db.cursor()
+
+        # -------------------------------------------------
+        # USER + INTERVIEW SETUP REPORT
+        # -------------------------------------------------
+
+        sql = """
+        SELECT
+
+            r.registration_id,
+            r.name,
+            r.mobile,
+            r.email,
+            r.gender,
+
+            s.department,
+            s.domain,
+            s.category,
+            s.difficulty,
+            s.setup_time
+
+        FROM registration r
+
+        LEFT JOIN setup s
+
+        ON r.registration_id = s.user_id
+
+        ORDER BY r.registration_id DESC
+        """
+
+        cursor.execute(sql)
+
+        users_data = cursor.fetchall()
+
+        print("TOTAL REPORT ROWS:", len(users_data))
+        print("REPORT DATA:", users_data)
+
+        return render_template(
+            "usersreport.html",
+            users=users_data
+        )
+
+    except mysql.connector.Error as error:
+
+        print("REPORT MYSQL ERROR:", error)
+
+        return f"""
+        <!DOCTYPE html>
+
+        <html>
+
+        <head>
+
+            <title>Report Error</title>
+
+            <style>
+
+                body {{
+
+                    margin:0;
+
+                    min-height:100vh;
+
+                    display:flex;
+
+                    justify-content:center;
+
+                    align-items:center;
+
+                    font-family:Arial,sans-serif;
+
+                    background:
+                    linear-gradient(
+                        135deg,
+                        #020817,
+                        #031a43,
+                        #020b24
+                    );
+
+                    color:white;
+                }}
+
+                .error-box {{
+
+                    width:90%;
+
+                    max-width:600px;
+
+                    padding:40px;
+
+                    text-align:center;
+
+                    background:#071b42;
+
+                    border:1px solid #ff4444;
+
+                    border-radius:15px;
+
+                    box-shadow:
+                    0 0 30px
+                    rgba(255,0,0,0.25);
+                }}
+
+                h2 {{
+                    color:#ff6666;
+                }}
+
+                p {{
+                    color:#dcecff;
+                    line-height:1.6;
+                }}
+
+                a {{
+
+                    display:inline-block;
+
+                    margin-top:20px;
+
+                    padding:12px 25px;
+
+                    background:
+                    linear-gradient(
+                        90deg,
+                        #006eff,
+                        #00aaff
+                    );
+
+                    color:white;
+
+                    text-decoration:none;
+
+                    border-radius:7px;
+
+                    font-weight:bold;
+                }}
+
+            </style>
+
+        </head>
+
+        <body>
+
+            <div class="error-box">
+
+                <h2>
+                    Database Error
+                </h2>
+
+                <p>
+                    {error}
+                </p>
+
+                <a href="/">
+                    Go Home
+                </a>
+
+            </div>
+
+        </body>
+
+        </html>
+        """
+
+    except Exception as error:
+
+        print("REPORT ERROR:", error)
+
+        return f"""
+        <h2>Something went wrong</h2>
+
+        <p>{error}</p>
+
+        <br>
+
+        <a href="/">
+            Go Home
+        </a>
+        """
+
+    finally:
+
+        if cursor:
+            cursor.close()
+
+        if db:
+            db.close()
+
+
+# =========================================================
+# START FLASK
+# =========================================================
+
+if __name__ == "__main__":
+
+    print("========================================")
+    print("FLASK IS STARTING...")
+    print("DATABASE: my_project")
+    print("TABLES:")
+    print("registration")
+    print("login")
+    print("setup")
+    print("interview_questions")
+    print("========================================")
+    print("URL: http://127.0.0.1:5000")
+    print("========================================")
+
+    app.run(
+        host="127.0.0.1",
+        port=5000,
+        debug=False,
+        use_reloader=False
+    )
+```

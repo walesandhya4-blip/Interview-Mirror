@@ -1,0 +1,247 @@
+{% extends "base.html" %}
+
+{% block title %}Interview History{% endblock %}
+
+{% block content %}
+
+<style>
+
+.history-page{
+    min-height:85vh;
+    padding:45px 6%;
+    background:
+        radial-gradient(circle at top left, rgba(59,130,246,0.15), transparent 35%),
+        radial-gradient(circle at bottom right, rgba(139,92,246,0.12), transparent 35%);
+}
+
+.history-header{
+    text-align:center;
+    margin-bottom:35px;
+}
+
+.history-header h1{
+    font-size:38px;
+    color:#ffffff;
+    margin-bottom:10px;
+}
+
+.history-header p{
+    color:#aebbd0;
+    font-size:15px;
+}
+
+.history-card{
+    width:100%;
+    overflow-x:auto;
+    background:rgba(15,23,42,0.85);
+    border:1px solid rgba(148,163,184,0.18);
+    border-radius:18px;
+    padding:22px;
+    box-shadow:0 15px 40px rgba(0,0,0,0.30);
+}
+
+.history-table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:900px;
+}
+
+.history-table th{
+    padding:16px 12px;
+    background:#172554;
+    color:#dbeafe;
+    font-size:14px;
+    text-align:center;
+    border-bottom:1px solid rgba(148,163,184,0.2);
+}
+
+.history-table td{
+    padding:15px 12px;
+    color:#e2e8f0;
+    text-align:center;
+    border-bottom:1px solid rgba(148,163,184,0.12);
+    font-size:14px;
+}
+
+.history-table tr:hover{
+    background:rgba(59,130,246,0.08);
+}
+
+.interview-id{
+    color:#60a5fa;
+    font-weight:bold;
+}
+
+.name{
+    color:#ffffff;
+    font-weight:bold;
+}
+
+.result{
+    color:#4ade80;
+    font-weight:bold;
+}
+
+.new-interview-btn{
+    display:inline-block;
+    margin-top:20px;
+    padding:12px 22px;
+    background:linear-gradient(135deg,#2563eb,#7c3aed);
+    color:white;
+    text-decoration:none;
+    border-radius:10px;
+    font-weight:bold;
+}
+
+.new-interview-btn:hover{
+    transform:translateY(-2px);
+}
+
+.empty-box{
+    text-align:center;
+    padding:60px 20px;
+    color:#94a3b8;
+}
+
+.empty-box h2{
+    color:#e2e8f0;
+    margin-bottom:10px;
+}
+
+</style>
+
+
+<div class="history-page">
+
+    <div class="history-header">
+
+        <h1>Interview History</h1>
+
+        <p>
+            View your previous interview performance and results
+        </p>
+
+    </div>
+
+
+    {% if history %}
+
+    <div class="history-card">
+
+        <table class="history-table">
+
+            <thead>
+
+                <tr>
+
+                    <th>Sr. No.</th>
+
+                    <th>Interview ID</th>
+
+                    <th>User ID</th>
+
+                    <th>Name</th>
+
+                    <th>Total Interviews</th>
+
+                    <th>Date</th>
+
+                    <th>Time</th>
+
+                    <th>Result</th>
+
+                    <th>Created At</th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                {% for h in history %}
+
+                <tr>
+
+                    <td>
+                        {{ loop.index }}
+                    </td>
+
+
+                    <td class="interview-id">
+                        #{{ h.history_id }}
+                    </td>
+
+
+                    <td>
+                        {{ h.user_id }}
+                    </td>
+
+
+                    <td class="name">
+                        {{ h.interviewer_name }}
+                    </td>
+
+
+                    <td>
+                        {{ h.total_interviews }}
+                    </td>
+
+
+                    <td>
+                        {{ h.interview_date }}
+                    </td>
+
+
+                    <td>
+                        {{ h.interview_time }}
+                    </td>
+
+
+                    <td class="result">
+                        {{ h.result }}%
+                    </td>
+
+
+                    <td>
+                        {{ h.created_at }}
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    {% else %}
+
+    <div class="history-card">
+
+        <div class="empty-box">
+
+            <h2>No Interview History</h2>
+
+            <p>
+                Complete an interview to see your records here.
+            </p>
+
+            <a
+                href="{{ url_for('interviewsetup') }}"
+                class="new-interview-btn"
+            >
+                Take New Interview
+            </a>
+
+        </div>
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}
